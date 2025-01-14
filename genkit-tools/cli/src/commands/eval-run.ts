@@ -36,6 +36,7 @@ interface EvalRunCliOptions {
   evaluators?: string;
   force?: boolean;
   outputFormat: string;
+  batchSize?: number;
 }
 
 /** Command to run evaluation on a dataset. */
@@ -57,6 +58,11 @@ export const evalRun = new Command('eval:run')
   .option(
     '--evaluators <evaluators>',
     'comma separated list of evaluators to use (by default uses all)'
+  )
+  .option(
+    '--batchSize <batchSize>',
+    'batch size to use for parallel evals (default to 1, no parallelization)',
+    parseInt
   )
   .option('--force', 'Automatically accept all interactive prompts')
   .action(async (dataset: string, options: EvalRunCliOptions) => {
@@ -103,6 +109,7 @@ export const evalRun = new Command('eval:run')
         manager,
         evaluatorActions,
         evalDataset,
+        batchSize: options.batchSize,
       });
 
       if (options.output) {

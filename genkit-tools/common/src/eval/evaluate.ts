@@ -127,12 +127,15 @@ export async function runEvaluation(params: {
   manager: RuntimeManager;
   evaluatorActions: Action[];
   evalDataset: EvalInput[];
+  batchSize?: number;
   augments?: EvalKeyAugments;
 }): Promise<EvalRun> {
-  const { manager, evaluatorActions, evalDataset, augments } = params;
+  const { manager, evaluatorActions, evalDataset, batchSize, augments } =
+    params;
   const evalRunId = randomUUID();
   const scores: Record<string, any> = {};
   logger.info('Running evaluation...');
+
   for (const action of evaluatorActions) {
     const name = evaluatorName(action);
     const response = await manager.runAction({
@@ -140,6 +143,7 @@ export async function runEvaluation(params: {
       input: {
         dataset: evalDataset.filter((row) => !row.error),
         evalRunId,
+        batchSize,
       },
     });
     scores[name] = response.result;

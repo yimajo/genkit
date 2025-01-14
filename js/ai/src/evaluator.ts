@@ -162,22 +162,22 @@ export function defineEvaluator<
           : z.array(BaseDataPointSchema),
         options: options.configSchema ?? z.unknown(),
         evalRunId: z.string(),
+        batchSize: z.number().optional(),
       }),
       outputSchema: EvalResponsesSchema,
       metadata: metadata,
     },
     async (i) => {
       let evalResponses: EvalResponses = [];
-      for (let index = 0; index < i.dataset.length; index++) {
-        const datapoint: BaseEvalDataPoint = {
-          ...i.dataset[index],
-          testCaseId: i.dataset[index].testCaseId ?? randomUUID(),
-        };
+      const batches = getBatchedArray(i.dataset, i.batchSize);
+
+      for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+        const batch = batches[batchIndex];
         try {
           await runInNewSpan(
             {
               metadata: {
-                name: `Test Case ${datapoint.testCaseId}`,
+                name: `Batch ${batchIndex}`,
                 metadata: { 'evaluator:evalRunId': i.evalRunId },
               },
               labels: {
@@ -187,36 +187,42 @@ export function defineEvaluator<
             async (metadata, otSpan) => {
               const spanId = otSpan.spanContext().spanId;
               const traceId = otSpan.spanContext().traceId;
-              try {
+
+              const evalRunPromises = batch.map((d, index) => {
+                const datapoint: BaseEvalDataPoint = {
+                  ...d,
+                  testCaseId: d.testCaseId ?? randomUUID(),
+                };
                 metadata.input = {
                   input: datapoint.input,
                   output: datapoint.output,
                   context: datapoint.context,
                 };
-                const testCaseOutput = await runner(datapoint, i.options);
-                testCaseOutput.sampleIndex = index;
-                testCaseOutput.spanId = spanId;
-                testCaseOutput.traceId = traceId;
-                metadata.output = testCaseOutput;
-                evalResponses.push(testCaseOutput);
-                return testCaseOutput;
-              } catch (e) {
-                evalResponses.push({
-                  sampleIndex: index,
-                  spanId,
-                  traceId,
-                  testCaseId: datapoint.testCaseId,
-                  evaluation: {
-                    error: `Evaluation of test case ${datapoint.testCaseId} failed: \n${(e as Error).stack}`,
-                  },
-                });
-                throw e;
-              }
+                const evalOutputPromise = runner(datapoint, i.options).catch(
+                  (error) => {
+                    return {
+                      sampleIndex: index,
+                      spanId,
+                      traceId,
+                      testCaseId: datapoint.testCaseId,
+                      evaluation: {
+                        error: `Evaluation of test case ${datapoint.testCaseId} failed: \n${error}`,
+                      },
+                    };
+                  }
+                );
+                return evalOutputPromise;
+              });
+
+              const allResults = await Promise.all(evalRunPromises);
+              allResults.map((result) => {
+                evalResponses.push(result);
+              });
             }
           );
         } catch (e) {
           logger.error(
-            `Evaluation of test case ${datapoint.testCaseId} failed: \n${(e as Error).stack}`
+            `Evaluation of batch ${batchIndex} failed: \n${(e as Error).stack}`
           );
           continue;
         }
@@ -295,4 +301,20 @@ export function evaluatorRef<
   options: EvaluatorReference<CustomOptionsSchema>
 ): EvaluatorReference<CustomOptionsSchema> {
   return { ...options };
+}
+
+function getBatchedArray<T>(arr: T[], batchSize?: number): T[][] {
+  let size: number;
+  if (!batchSize) {
+    size = 1;
+  } else {
+    size = batchSize;
+  }
+
+  let batches: T[][] = [];
+  for (var i = 0; i < arr.length; i += size) {
+    batches.push(arr.slice(i, i + size));
+  }
+
+  return batches;
 }
