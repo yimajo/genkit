@@ -19,7 +19,8 @@ import {
   devLocalRetrieverRef,
 } from '@genkit-ai/dev-local-vectorstore';
 import { gemini15Flash } from '@genkit-ai/googleai';
-import { z } from 'genkit';
+import { Middleware, z } from 'genkit';
+import { BaseEvalDataPoint } from 'genkit/evaluator';
 import { Document } from 'genkit/retriever';
 import { chunk } from 'llm-chunk';
 import path from 'path';
@@ -84,6 +85,40 @@ export const simpleStructured = ai.defineFlow(
       prompt: i.query,
     });
     return { response: llmResponse.text };
+  }
+);
+
+export function myMiddleware(): Middleware {
+  return async (req: any, next: (arg0: any) => any) => {
+    // `req` is the Evaluator request (full dataset)
+
+    const dataset = req.dataset.map((d: BaseEvalDataPoint) => ({
+      ...d,
+      myCustomField: 'this is custom data', // or override other fields.
+    }));
+
+    return next({ ...req, dataset });
+  };
+}
+
+// Define fake evaluator
+export const myEvaluator = ai.defineEvaluator(
+  {
+    name: 'myEvaluator',
+    displayName: 'Test eval',
+    definition: 'Test eval definition',
+    use: [myMiddleware()],
+  },
+  async (i) => {
+    // `i` contains `myCustomField`, to be used for evaluation
+
+    return {
+      testCaseId: i.testCaseId,
+      evaluation: {
+        score: 1,
+        details: { reasoning: (i as any).myCustomField },
+      },
+    };
   }
 );
 

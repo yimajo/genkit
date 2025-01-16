@@ -129,6 +129,7 @@ import {
   toFrontmatter,
   type DotpromptAction,
 } from '@genkit-ai/dotprompt';
+import { Middleware } from 'genkit';
 import { v4 as uuidv4 } from 'uuid';
 import { BaseEvalDataPointSchema } from './evaluator.js';
 import { logger } from './logging.js';
@@ -638,6 +639,7 @@ export class Genkit implements HasRegistry {
       dataPointType?: DataPoint;
       configSchema?: EvaluatorOptions;
       isBilled?: boolean;
+      use?: Middleware[];
     },
     runner: EvaluatorFn<EvalDataPoint, EvaluatorOptions>
   ): EvaluatorAction {

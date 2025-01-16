@@ -19,6 +19,7 @@ import { logger } from '@genkit-ai/core/logging';
 import { Registry } from '@genkit-ai/core/registry';
 import { SPAN_TYPE_ATTR, runInNewSpan } from '@genkit-ai/core/tracing';
 import { randomUUID } from 'crypto';
+import { Middleware } from 'genkit';
 
 export const ATTR_PREFIX = 'genkit';
 export const SPAN_STATE_ATTR = ATTR_PREFIX + ':state';
@@ -143,6 +144,7 @@ export function defineEvaluator<
     dataPointType?: DataPoint;
     configSchema?: EvaluatorOptions;
     isBilled?: boolean;
+    use?: Middleware[];
   },
   runner: EvaluatorFn<EvalDataPoint, EvaluatorOptions>
 ) {
@@ -165,6 +167,7 @@ export function defineEvaluator<
       }),
       outputSchema: EvalResponsesSchema,
       metadata: metadata,
+      use: options.use,
     },
     async (i) => {
       let evalResponses: EvalResponses = [];
