@@ -101,6 +101,14 @@ export function myMiddleware(): Middleware {
   };
 }
 
+export const contextOverride = ai.defineEvalInputOverride(
+  {
+    name: 'pdfQAEvalOverride',
+    targetActionRef: '/flow/pdfQA',
+  },
+  async (input) => ({ ...input, context: ['this is an override context'] })
+);
+
 // Define fake evaluator
 export const myEvaluator = ai.defineEvaluator(
   {

@@ -34,9 +34,10 @@ import {
   SpanData,
 } from '../types';
 import {
+  augmentCustomExtractor,
   evaluatorName,
   generateTestCaseId,
-  getEvalExtractors,
+  getDefaultEvalExtractors,
   isEvaluator,
   logger,
   stackTraceSpans,
@@ -341,7 +342,7 @@ async function gatherEvalInput(params: {
 }): Promise<EvalInput> {
   const { manager, actionRef, state } = params;
 
-  const extractors = await getEvalExtractors(actionRef);
+  const extractors = await getDefaultEvalExtractors(actionRef);
   const traceId = state.traceId;
   if (!traceId) {
     logger.warn('No traceId available...');
@@ -387,7 +388,7 @@ async function gatherEvalInput(params: {
   const context = extractors.context(trace);
   const error = isModelAction ? getErrorFromModelResponse(output) : undefined;
 
-  return {
+  const evalInput: EvalInput = {
     // TODO Replace this with unified trace class
     testCaseId: state.testCaseId,
     input,
@@ -397,6 +398,9 @@ async function gatherEvalInput(params: {
     reference: state.reference,
     traceIds: [traceId],
   };
+
+  const augmented = await augmentCustomExtractor(manager, actionRef, evalInput);
+  return augmented;
 }
 
 function getSpanErrorMessage(span: SpanData): string | undefined {

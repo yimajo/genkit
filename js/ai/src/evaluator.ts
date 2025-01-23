@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import { Action, defineAction, z } from '@genkit-ai/core';
+import { Action, Middleware, defineAction, z } from '@genkit-ai/core';
 import { logger } from '@genkit-ai/core/logging';
 import { Registry } from '@genkit-ai/core/registry';
 import { SPAN_TYPE_ATTR, runInNewSpan } from '@genkit-ai/core/tracing';
 import { randomUUID } from 'crypto';
-import { Middleware } from 'genkit';
 
 export const ATTR_PREFIX = 'genkit';
 export const SPAN_STATE_ATTR = ATTR_PREFIX + ':state';
@@ -36,7 +35,8 @@ export const BaseDataPointSchema = z.object({
 // DataPoint that is to be used for actions. This needs testCaseId to be present.
 export const BaseEvalDataPointSchema = BaseDataPointSchema.extend({
   testCaseId: z.string(),
-});
+  // traceData to be added here
+}).passthrough();
 export type BaseEvalDataPoint = z.infer<typeof BaseEvalDataPointSchema>;
 
 export const ScoreSchema = z.object({
@@ -299,4 +299,29 @@ export function evaluatorRef<
   options: EvaluatorReference<CustomOptionsSchema>
 ): EvaluatorReference<CustomOptionsSchema> {
   return { ...options };
+}
+
+export function defineEvalInputOverride(
+  registry: Registry,
+  options: {
+    targetActionRef: string;
+    name: string;
+  },
+  fn: (input: BaseEvalDataPoint) => Promise<BaseEvalDataPoint>
+) {
+  return defineAction(
+    registry,
+    {
+      actionType: 'custom',
+      name: options.name,
+      inputSchema: BaseEvalDataPointSchema,
+      outputSchema: BaseEvalDataPointSchema,
+      metadata: {
+        targetActionRef: options.targetActionRef,
+      },
+    },
+    async (input) => {
+      return await fn(input);
+    }
+  );
 }

@@ -19,18 +19,12 @@ import { createReadStream } from 'fs';
 import { readFile } from 'fs/promises';
 import * as inquirer from 'inquirer';
 import { createInterface } from 'readline';
-import {
-  EvalField,
-  EvaluationExtractor,
-  InputStepSelector,
-  OutputStepSelector,
-  StepSelector,
-  findToolsConfig,
-  isEvalField,
-} from '../plugin';
+import { RuntimeManager } from '../manager';
+import { EvalField } from '../plugin';
 import {
   Dataset,
   DatasetSchema,
+  EvalInput,
   EvalInputDataset,
   EvalInputDatasetSchema,
   EvaluationDatasetSchema,
@@ -139,98 +133,38 @@ const DEFAULT_MODEL_EXTRACTORS: Record<EvalField, EvalExtractorFn> = {
   context: () => [],
 };
 
-function getStepAttribute(
-  trace: TraceData,
-  stepName: string,
-  attributeName?: string
-) {
-  // Default to output
-  const attr = attributeName ?? 'genkit:output';
-  const values = Object.values(trace.spans)
-    .filter((step) => step.displayName === stepName)
-    .flatMap((step) => {
-      return safeParse(step.attributes[attr] as string);
-    });
-  if (values.length === 0) {
-    return '';
-  }
-  if (values.length === 1) {
-    return values[0];
-  }
-  // Return array if multiple steps have the same name
-  return values;
-}
-
-function getExtractorFromStepName(stepName: string): EvalExtractorFn {
-  return (trace: TraceData) => {
-    return getStepAttribute(trace, stepName);
-  };
-}
-
-function getExtractorFromStepSelector(
-  stepSelector: StepSelector
-): EvalExtractorFn {
-  return (trace: TraceData) => {
-    let stepName: string | undefined = undefined;
-    let selectedAttribute: string = 'genkit:output'; // default
-
-    if (Object.hasOwn(stepSelector, 'inputOf')) {
-      stepName = (stepSelector as InputStepSelector).inputOf;
-      selectedAttribute = 'genkit:input';
-    } else {
-      stepName = (stepSelector as OutputStepSelector).outputOf;
-      selectedAttribute = 'genkit:output';
-    }
-    if (!stepName) {
-      return '';
-    } else {
-      return getStepAttribute(trace, stepName, selectedAttribute);
-    }
-  };
-}
-
-function getExtractorMap(extractor: EvaluationExtractor) {
-  let extractorMap: Record<EvalField, EvalExtractorFn> = {} as Record<
-    EvalField,
-    EvalExtractorFn
-  >;
-  for (const [key, value] of Object.entries(extractor)) {
-    if (isEvalField(key)) {
-      if (typeof value === 'string') {
-        extractorMap[key] = getExtractorFromStepName(value);
-      } else if (typeof value === 'object') {
-        extractorMap[key] = getExtractorFromStepSelector(value);
-      } else if (typeof value === 'function') {
-        extractorMap[key] = value;
-      }
-    }
-  }
-  return extractorMap;
-}
-
-export async function getEvalExtractors(
+export async function getDefaultEvalExtractors(
   actionRef: string
 ): Promise<Record<string, EvalExtractorFn>> {
   if (actionRef.startsWith('/model')) {
     // Always use defaults for model extraction.
     logger.debug(
-      'getEvalExtractors - modelRef provided, using default extractors'
+      'getDefaultEvalExtractors - modelRef provided, using default extractors'
     );
-    return Promise.resolve(DEFAULT_MODEL_EXTRACTORS);
+    return DEFAULT_MODEL_EXTRACTORS;
   }
-  const config = await findToolsConfig();
-  const extractors = config?.evaluators
-    ?.filter((e) => e.actionRef === actionRef)
-    .map((e) => e.extractors);
-  if (!extractors) {
-    return Promise.resolve(DEFAULT_FLOW_EXTRACTORS);
+  return DEFAULT_FLOW_EXTRACTORS;
+}
+
+export async function augmentCustomExtractor(
+  manager: RuntimeManager,
+  actionRef: string,
+  input: EvalInput
+): Promise<EvalInput> {
+  const actions = await manager.listActions();
+  const customExtractorAction = Object.values(actions).find(
+    (action: Action) =>
+      action.key.startsWith('/custom') &&
+      action.metadata?.targetActionRef === actionRef
+  );
+  if (!customExtractorAction) {
+    return input;
   }
-  let composedExtractors = DEFAULT_FLOW_EXTRACTORS;
-  for (const extractor of extractors) {
-    const extractorFunction = getExtractorMap(extractor);
-    composedExtractors = { ...composedExtractors, ...extractorFunction };
-  }
-  return Promise.resolve(composedExtractors);
+  const response = await manager.runAction({
+    key: customExtractorAction.key,
+    input,
+  });
+  return response.result as EvalInput;
 }
 
 /**Global function to generate testCaseId */

@@ -116,15 +116,17 @@ export type EvaluationDataset = z.infer<typeof EvaluationDatasetSchema>;
  * This is not user facing. Required fields that are missing from
  * {@link EvaluationSampleSchema} must be auto-popoulated.
  */
-export const EvalInputSchema = z.object({
-  testCaseId: z.string(),
-  input: z.any(),
-  output: z.any(),
-  error: z.string().optional(),
-  context: z.array(z.any()).optional(),
-  reference: z.any().optional(),
-  traceIds: z.array(z.string()),
-});
+export const EvalInputSchema = z
+  .object({
+    testCaseId: z.string(),
+    input: z.any(),
+    output: z.any(),
+    error: z.string().optional(),
+    context: z.array(z.any()).optional(),
+    reference: z.any().optional(),
+    traceIds: z.array(z.string()),
+  })
+  .passthrough();
 export type EvalInput = z.infer<typeof EvalInputSchema>;
 
 export const EvalInputDatasetSchema = z.array(EvalInputSchema);

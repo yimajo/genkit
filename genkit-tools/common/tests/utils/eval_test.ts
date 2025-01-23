@@ -17,7 +17,7 @@
 import { describe, expect, it, jest } from '@jest/globals';
 import * as configModule from '../../src/plugin/config';
 import { TraceData } from '../../src/types/trace';
-import { getEvalExtractors } from '../../src/utils/eval';
+import { getDefaultEvalExtractors } from '../../src/utils/eval';
 import { MockTrace } from './trace';
 
 const CONTEXT_TEXTS = [
@@ -33,7 +33,9 @@ describe('eval utils', () => {
       // Mock trace mocks flows, but the logic of extractors should be unaffected.
       const trace = new MockTrace('My input', 'My output').getTrace();
 
-      const extractors = await getEvalExtractors('/model/googleai/gemini-pro');
+      const extractors = await getDefaultEvalExtractors(
+        '/model/googleai/gemini-pro'
+      );
 
       expect(Object.keys(extractors).sort()).toEqual(
         ['input', 'output', 'context'].sort()
@@ -58,7 +60,7 @@ describe('eval utils', () => {
       })
       .getTrace();
 
-    const extractors = await getEvalExtractors('/flow/multiSteps');
+    const extractors = await getDefaultEvalExtractors('/flow/multiSteps');
 
     expect(Object.keys(extractors).sort()).toEqual(
       ['input', 'output', 'context'].sort()
@@ -98,7 +100,7 @@ describe('eval utils', () => {
       })
       .getTrace();
 
-    const extractors = await getEvalExtractors('/flow/multiSteps');
+    const extractors = await getDefaultEvalExtractors('/flow/multiSteps');
 
     expect(extractors.input(trace)).toEqual('My input');
     expect(extractors.output(trace)).toEqual({ out: 'my-object-output' });
@@ -142,7 +144,7 @@ describe('eval utils', () => {
       })
       .getTrace();
 
-    const extractors = await getEvalExtractors('/flow/multiSteps');
+    const extractors = await getDefaultEvalExtractors('/flow/multiSteps');
 
     expect(extractors.input(trace)).toEqual('My input');
     expect(extractors.output(trace)).toEqual('step2-input');
@@ -203,7 +205,7 @@ describe('eval utils', () => {
       })
       .getTrace();
 
-    const extractors = await getEvalExtractors('/flow/multiSteps');
+    const extractors = await getDefaultEvalExtractors('/flow/multiSteps');
 
     expect(extractors.input(trace)).toEqual(['My input TEST TEST TEST']);
     expect(extractors.output(trace)).toEqual('step2-input');
@@ -224,7 +226,7 @@ describe('eval utils', () => {
       })
       .getTrace();
 
-    const extractors = await getEvalExtractors('/flow/multiSteps');
+    const extractors = await getDefaultEvalExtractors('/flow/multiSteps');
 
     expect(Object.keys(extractors).sort()).toEqual(
       ['input', 'output', 'context'].sort()

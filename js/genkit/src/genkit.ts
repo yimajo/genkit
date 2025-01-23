@@ -64,6 +64,8 @@ import {
   embedMany,
 } from '@genkit-ai/ai/embedder';
 import {
+  BaseEvalDataPoint,
+  defineEvalInputOverride,
   defineEvaluator,
   EvaluatorAction,
   EvaluatorFn,
@@ -105,6 +107,9 @@ import {
 import { resolveTools } from '@genkit-ai/ai/tool';
 import {
   Action,
+  ActionFnArg,
+  ActionParams,
+  defineAction,
   defineFlow,
   defineJsonSchema,
   defineSchema,
@@ -112,6 +117,7 @@ import {
   FlowFn,
   isDevEnv,
   JSONSchema,
+  Middleware,
   ReflectionServer,
   run,
   StreamingCallback,
@@ -129,7 +135,6 @@ import {
   toFrontmatter,
   type DotpromptAction,
 } from '@genkit-ai/dotprompt';
-import { Middleware } from 'genkit';
 import { v4 as uuidv4 } from 'uuid';
 import { BaseEvalDataPointSchema } from './evaluator.js';
 import { logger } from './logging.js';
@@ -210,6 +215,23 @@ export class Genkit implements HasRegistry {
     const flow = defineFlow(this.registry, config, fn);
     this.flows.push(flow);
     return flow;
+  }
+
+  /**
+   * Defines and registers a generic action
+   */
+  defineAction<
+    I extends z.ZodTypeAny = z.ZodTypeAny,
+    O extends z.ZodTypeAny = z.ZodTypeAny,
+    S extends z.ZodTypeAny = z.ZodTypeAny,
+  >(
+    config: ActionParams<I, O, S>,
+    fn: (
+      input: z.infer<I>,
+      options: ActionFnArg<z.infer<S>>
+    ) => Promise<z.infer<O>>
+  ): Action<I, O, S> {
+    return defineAction(this.registry, config, fn);
   }
 
   /**
@@ -644,6 +666,19 @@ export class Genkit implements HasRegistry {
     runner: EvaluatorFn<EvalDataPoint, EvaluatorOptions>
   ): EvaluatorAction {
     return defineEvaluator(this.registry, options, runner);
+  }
+
+  /**
+   * Creates evaluator override
+   */
+  defineEvalInputOverride(
+    options: {
+      targetActionRef: string;
+      name: string;
+    },
+    runner: (input: BaseEvalDataPoint) => Promise<BaseEvalDataPoint>
+  ): Action {
+    return defineEvalInputOverride(this.registry, options, runner);
   }
 
   /**

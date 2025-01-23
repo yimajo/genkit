@@ -21,7 +21,7 @@ import {
 } from '@genkit-ai/tools-common';
 import {
   generateTestCaseId,
-  getEvalExtractors,
+  getDefaultEvalExtractors,
   logger,
 } from '@genkit-ai/tools-common/utils';
 import { Command } from 'commander';
@@ -46,7 +46,7 @@ export const evalExtractData = new Command('eval:extractData')
   .option('--label [label]', 'label flow run in this batch')
   .action(async (flowName: string, options: EvalDatasetOptions) => {
     await runWithManager(async (manager) => {
-      const extractors = await getEvalExtractors(`/flow/${flowName}`);
+      const extractors = await getDefaultEvalExtractors(`/flow/${flowName}`);
 
       logger.info(`Extracting trace data '/flow/${flowName}'...`);
       let dataset: EvalInputDataset = [];
