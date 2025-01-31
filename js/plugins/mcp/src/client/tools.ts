@@ -14,15 +14,8 @@
  * limitations under the License.
  */
 
-import type { Client } from '@modelcontextprotocol/sdk/client/index.js' with {
-  'resolution-mode': 'import',
-};
-import type {
-  CallToolResult,
-  Tool,
-} from '@modelcontextprotocol/sdk/types.js' with {
-  'resolution-mode': 'import',
-};
+import type { Client } from '@modelcontextprotocol/sdk/client';
+import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types';
 import { type Genkit, z } from 'genkit';
 import { logger } from 'genkit/logging';
 import type { McpClientOptions } from '../index.js';

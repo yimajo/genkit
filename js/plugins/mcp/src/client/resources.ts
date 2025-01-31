@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-import type { Client } from '@modelcontextprotocol/sdk/client/index.js' with {
-  'resolution-mode': 'import',
-};
+import type { Client } from '@modelcontextprotocol/sdk/client';
 import type {
   Resource,
   ResourceTemplate,
-} from '@modelcontextprotocol/sdk/types.js' with {
-  'resolution-mode': 'import',
-};
+} from '@modelcontextprotocol/sdk/types';
 import { type Genkit, z } from 'genkit';
 import type { McpClientOptions } from '../index.js';
 

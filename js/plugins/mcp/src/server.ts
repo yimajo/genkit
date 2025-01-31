@@ -24,12 +24,8 @@ import {
 import type { McpServerOptions } from './index.js';
 
 import { toJsonSchema } from '@genkit-ai/core/schema';
-import type { Server } from '@modelcontextprotocol/sdk/server/index.js' with {
-  'resolution-mode': 'import',
-};
-import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js' with {
-  'resolution-mode': 'import',
-};
+import type { Server } from '@modelcontextprotocol/sdk/server';
+import type { Transport } from '@modelcontextprotocol/sdk/shared/transport';
 import type {
   CallToolRequest,
   CallToolResult,
@@ -42,9 +38,7 @@ import type {
   Prompt,
   PromptMessage,
   Tool,
-} from '@modelcontextprotocol/sdk/types.js' with {
-  'resolution-mode': 'import',
-};
+} from '@modelcontextprotocol/sdk/types';
 import { logger } from 'genkit/logging';
 import { type ToolAction, toToolDefinition } from 'genkit/tool';
 export class GenkitMcpServer {

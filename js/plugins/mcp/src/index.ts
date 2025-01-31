@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-import type { StdioServerParameters } from '@modelcontextprotocol/sdk/client/stdio.js' with {
-  'resolution-mode': 'import',
-};
-import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js' with {
-  'resolution-mode': 'import',
-};
+import type { StdioServerParameters } from '@modelcontextprotocol/sdk/client/stdio';
+import type { Transport } from '@modelcontextprotocol/sdk/shared/transport';
 import { type Genkit, GenkitError } from 'genkit';
 import { genkitPlugin } from 'genkit/plugin';
 import { registerAllPrompts } from './client/prompts.js';
