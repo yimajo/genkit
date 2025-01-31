@@ -15,10 +15,10 @@
  */
 
 import { JSONSchema7 } from 'json-schema';
-import * as z from 'zod';
+import type * as z from 'zod';
 import { lazy } from './async.js';
-import { ActionContext, getContext, runWithContext } from './context.js';
-import { ActionType, Registry } from './registry.js';
+import { type ActionContext, getContext, runWithContext } from './context.js';
+import type { ActionType, Registry } from './registry.js';
 import { parseSchema } from './schema.js';
 import {
   SPAN_TYPE_ATTR,

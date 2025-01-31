@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { StatusName } from './statusTypes.js';
+import type { StatusName } from './statusTypes.js';
 
 /**
  * Base error class for Genkit errors.

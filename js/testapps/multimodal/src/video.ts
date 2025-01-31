@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+import fs from 'fs';
+import path from 'path';
 import {
   devLocalIndexerRef,
   devLocalRetrieverRef,
 } from '@genkit-ai/dev-local-vectorstore';
 import fileTypeChecker from 'file-type-checker';
-import fs from 'fs';
 import { Document, z } from 'genkit';
-import path from 'path';
 import { ai } from './genkit.js';
 import { augmentedVideoPrompt } from './prompt.js';
 

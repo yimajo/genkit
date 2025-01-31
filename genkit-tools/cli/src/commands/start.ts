@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import { spawn } from 'child_process';
 import { startServer } from '@genkit-ai/tools-common/server';
 import { logger } from '@genkit-ai/tools-common/utils';
-import { spawn } from 'child_process';
 import { Command } from 'commander';
 import getPort, { makeRange } from 'get-port';
 import open from 'open';

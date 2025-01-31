@@ -104,21 +104,11 @@
   },
   "typesVersions": {
     "*": {
-      "eval": [
-        "lib/types/eval"
-      ],
-      "plugin": [
-        "lib/types/plugin"
-      ],
-      "manager": [
-        "lib/types/manager"
-      ],
-      "server": [
-        "lib/types/server"
-      ],
-      "utils": [
-        "lib/types/utils"
-      ]
+      "eval": ["lib/types/eval"],
+      "plugin": ["lib/types/plugin"],
+      "manager": ["lib/types/manager"],
+      "server": ["lib/types/server"],
+      "utils": ["lib/types/utils"]
     }
   }
 }

@@ -1,12 +1,7 @@
 {
   "name": "genkit",
   "description": "Genkit AI framework",
-  "keywords": [
-    "genkit",
-    "ai",
-    "genai",
-    "generative-ai"
-  ],
+  "keywords": ["genkit", "ai", "genai", "generative-ai"],
   "version": "1.0.0-rc.12",
   "type": "commonjs",
   "main": "./lib/cjs/index.js",
@@ -41,12 +36,7 @@
     "tsx": "^4.19.2",
     "@types/body-parser": "^1.19.5"
   },
-  "files": [
-    "genkit-ui",
-    "lib",
-    "src",
-    "*"
-  ],
+  "files": ["genkit-ui", "lib", "src", "*"],
   "types": "lib/index.d.ts",
   "exports": {
     ".": {
@@ -160,63 +150,25 @@
   },
   "typesVersions": {
     "*": {
-      "metrics": [
-        "lib/metrics"
-      ],
-      "beta": [
-        "lib/beta"
-      ],
-      "registry": [
-        "lib/registry"
-      ],
-      "tracing": [
-        "lib/tracing"
-      ],
-      "logging": [
-        "lib/logging"
-      ],
-      "config": [
-        "lib/config"
-      ],
-      "runtime": [
-        "lib/runtime"
-      ],
-      "schema": [
-        "lib/schema"
-      ],
-      "formats": [
-        "lib/formats"
-      ],
-      "retriever": [
-        "lib/retriever"
-      ],
-      "embedder": [
-        "lib/embedder"
-      ],
-      "evaluator": [
-        "lib/evaluator"
-      ],
-      "model": [
-        "lib/model"
-      ],
-      "model/middleware": [
-        "lib/middleware"
-      ],
-      "extract": [
-        "lib/extract"
-      ],
-      "testing": [
-        "lib/testing"
-      ],
-      "tool": [
-        "lib/tool"
-      ],
-      "plugin": [
-        "lib/plugin"
-      ],
-      "client": [
-        "lib/client/index"
-      ]
+      "metrics": ["lib/metrics"],
+      "beta": ["lib/beta"],
+      "registry": ["lib/registry"],
+      "tracing": ["lib/tracing"],
+      "logging": ["lib/logging"],
+      "config": ["lib/config"],
+      "runtime": ["lib/runtime"],
+      "schema": ["lib/schema"],
+      "formats": ["lib/formats"],
+      "retriever": ["lib/retriever"],
+      "embedder": ["lib/embedder"],
+      "evaluator": ["lib/evaluator"],
+      "model": ["lib/model"],
+      "model/middleware": ["lib/middleware"],
+      "extract": ["lib/extract"],
+      "testing": ["lib/testing"],
+      "tool": ["lib/tool"],
+      "plugin": ["lib/plugin"],
+      "client": ["lib/client/index"]
     }
   }
 }

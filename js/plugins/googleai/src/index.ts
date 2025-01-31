@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Genkit, ModelReference } from 'genkit';
-import { GenkitPlugin, genkitPlugin } from 'genkit/plugin';
+import type { Genkit, ModelReference } from 'genkit';
+import { type GenkitPlugin, genkitPlugin } from 'genkit/plugin';
 import {
   SUPPORTED_MODELS as EMBEDDER_MODELS,
   defineGoogleAIEmbedder,
@@ -23,9 +23,11 @@ import {
   textEmbeddingGecko001,
 } from './embedder.js';
 import {
-  GeminiConfigSchema,
-  SUPPORTED_V15_MODELS,
+  type GeminiConfig,
+  type GeminiConfigSchema,
+  type GeminiVersionString,
   SUPPORTED_V1_MODELS,
+  SUPPORTED_V15_MODELS,
   defineGoogleAIModel,
   gemini,
   gemini10Pro,
@@ -33,8 +35,6 @@ import {
   gemini15Flash8b,
   gemini15Pro,
   gemini20FlashExp,
-  type GeminiConfig,
-  type GeminiVersionString,
 } from './gemini.js';
 export {
   gemini,

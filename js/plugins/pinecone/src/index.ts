@@ -15,15 +15,15 @@
  */
 
 import {
-  CreateIndexOptions,
+  type CreateIndexOptions,
   Pinecone,
-  PineconeConfiguration,
-  RecordMetadata,
+  type PineconeConfiguration,
+  type RecordMetadata,
 } from '@pinecone-database/pinecone';
-import { Genkit, z } from 'genkit';
-import { GenkitPlugin, genkitPlugin } from 'genkit/plugin';
+import { type Genkit, z } from 'genkit';
+import { type GenkitPlugin, genkitPlugin } from 'genkit/plugin';
 
-import { EmbedderArgument, Embedding } from 'genkit/embedder';
+import type { EmbedderArgument, Embedding } from 'genkit/embedder';
 import {
   CommonRetrieverOptionsSchema,
   Document,

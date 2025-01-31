@@ -15,17 +15,21 @@
  */
 
 import {
-  Genkit,
+  type Genkit,
   GenkitError,
   Message,
-  MessageData,
-  PromptAction,
+  type MessageData,
+  type PromptAction,
 } from 'genkit';
 import type { McpServerOptions } from './index.js';
 
 import { toJsonSchema } from '@genkit-ai/core/schema';
-import type { Server } from '@modelcontextprotocol/sdk/server/index.js' with { 'resolution-mode': 'import' };
-import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js' with { 'resolution-mode': 'import' };
+import type { Server } from '@modelcontextprotocol/sdk/server/index.js' with {
+  'resolution-mode': 'import',
+};
+import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js' with {
+  'resolution-mode': 'import',
+};
 import type {
   CallToolRequest,
   CallToolResult,
@@ -38,14 +42,16 @@ import type {
   Prompt,
   PromptMessage,
   Tool,
-} from '@modelcontextprotocol/sdk/types.js' with { 'resolution-mode': 'import' };
+} from '@modelcontextprotocol/sdk/types.js' with {
+  'resolution-mode': 'import',
+};
 import { logger } from 'genkit/logging';
-import { ToolAction, toToolDefinition } from 'genkit/tool';
+import { type ToolAction, toToolDefinition } from 'genkit/tool';
 export class GenkitMcpServer {
   ai: Genkit;
   options: McpServerOptions;
   server?: Server;
-  actionsResolved: boolean = false;
+  actionsResolved = false;
   toolActions: ToolAction[] = [];
   promptActions: PromptAction[] = [];
 

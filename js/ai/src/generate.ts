@@ -15,20 +15,20 @@
  */
 
 import {
-  Action,
-  ActionContext,
+  type Action,
+  type ActionContext,
   GenkitError,
-  StreamingCallback,
+  type StreamingCallback,
   runWithContext,
   runWithStreamingCallback,
   sentinelNoopStreamingCallback,
   stripUndefinedProps,
-  z,
+  type z,
 } from '@genkit-ai/core';
 import { Channel } from '@genkit-ai/core/async';
-import { Registry } from '@genkit-ai/core/registry';
+import type { Registry } from '@genkit-ai/core/registry';
 import { toJsonSchema } from '@genkit-ai/core/schema';
-import { DocumentData } from './document.js';
+import type { DocumentData } from './document.js';
 import {
   injectInstructions,
   resolveFormat,
@@ -39,18 +39,18 @@ import { GenerateResponseChunk } from './generate/chunk.js';
 import { GenerateResponse } from './generate/response.js';
 import { Message } from './message.js';
 import {
-  GenerateActionOptions,
-  GenerateRequest,
-  GenerationCommonConfigSchema,
-  MessageData,
-  ModelArgument,
-  ModelMiddleware,
-  Part,
-  ToolResponsePart,
+  type GenerateActionOptions,
+  type GenerateRequest,
+  type GenerationCommonConfigSchema,
+  type MessageData,
+  type ModelArgument,
+  type ModelMiddleware,
+  type Part,
+  type ToolResponsePart,
   resolveModel,
 } from './model.js';
-import { ExecutablePrompt } from './prompt.js';
-import { ToolArgument, resolveTools, toToolDefinition } from './tool.js';
+import type { ExecutablePrompt } from './prompt.js';
+import { type ToolArgument, resolveTools, toToolDefinition } from './tool.js';
 export { GenerateResponse, GenerateResponseChunk };
 
 /** Specifies how tools should be called by the model. */
@@ -273,7 +273,7 @@ async function toolsToActionRefs(
 ): Promise<string[] | undefined> {
   if (!toolOpt) return;
 
-  let tools: string[] = [];
+  const tools: string[] = [];
 
   for (const t of toolOpt) {
     if (typeof t === 'string') {
@@ -471,7 +471,7 @@ export function generateStream<
     | GenerateOptions<O, CustomOptions>
     | PromiseLike<GenerateOptions<O, CustomOptions>>
 ): GenerateStreamResponse<O> {
-  let channel = new Channel<GenerateResponseChunk>();
+  const channel = new Channel<GenerateResponseChunk>();
 
   const generated = Promise.resolve(options).then((resolvedOptions) =>
     generate<O, CustomOptions>(registry, {

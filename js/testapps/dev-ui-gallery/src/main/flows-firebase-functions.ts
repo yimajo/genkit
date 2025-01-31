@@ -17,7 +17,7 @@
 import { firebaseAuth } from '@genkit-ai/firebase/auth';
 import { noAuth, onFlow } from '@genkit-ai/firebase/functions';
 import { gemini15Flash } from '@genkit-ai/googleai';
-import { DecodedIdToken } from 'firebase-admin/auth';
+import type { DecodedIdToken } from 'firebase-admin/auth';
 import { z } from 'genkit';
 import { ai } from '../genkit.js';
 

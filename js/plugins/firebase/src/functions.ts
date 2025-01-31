@@ -15,14 +15,14 @@
  */
 
 import { expressHandler } from '@genkit-ai/express';
-import * as express from 'express';
+import type * as express from 'express';
 import { getAppCheck } from 'firebase-admin/app-check';
 import {
-  HttpsFunction,
-  HttpsOptions,
+  type HttpsFunction,
+  type HttpsOptions,
   onRequest,
 } from 'firebase-functions/v2/https';
-import { Flow, FlowFn, Genkit, z } from 'genkit';
+import type { Flow, FlowFn, Genkit, z } from 'genkit';
 import { logger } from 'genkit/logging';
 import { initializeAppIfNecessary } from './helpers.js';
 
@@ -31,9 +31,10 @@ import { initializeAppIfNecessary } from './helpers.js';
  * performs checks before the flow runs. If this throws, the flow will not
  * be executed.
  */
-export interface FlowAuthPolicy<I extends z.ZodTypeAny = z.ZodTypeAny> {
-  (auth: any | undefined, input: z.infer<I>): void | Promise<void>;
-}
+export type FlowAuthPolicy<I extends z.ZodTypeAny = z.ZodTypeAny> = (
+  auth: any | undefined,
+  input: z.infer<I>
+) => void | Promise<void>;
 
 /**
  * For express-based flows, req.auth should contain the value to bepassed into

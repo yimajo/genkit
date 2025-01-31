@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Genkit, ModelArgument, z } from 'genkit';
-import { BaseEvalDataPoint, Score } from 'genkit/evaluator';
 import path from 'path';
+import { type Genkit, type ModelArgument, z } from 'genkit';
+import type { BaseEvalDataPoint, Score } from 'genkit/evaluator';
 import { getDirName, loadPromptFile, renderText } from './helper.js';
 
 const LongFormResponseSchema = z.object({ statements: z.array(z.string()) });
@@ -77,7 +77,7 @@ export async function faithfulnessScore<
       },
     });
     const parsedLongFormResponse = longFormResponse.output;
-    let statements = parsedLongFormResponse?.statements ?? [];
+    const statements = parsedLongFormResponse?.statements ?? [];
     if (statements.length === 0) {
       throw new Error('No statements returned');
     }

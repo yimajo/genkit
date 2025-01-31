@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
+import { performance } from 'node:perf_hooks';
 import {
-  Span as ApiSpan,
-  Link,
+  type Span as ApiSpan,
+  type Link,
   ROOT_CONTEXT,
   SpanStatusCode,
   trace,
 } from '@opentelemetry/api';
-import { performance } from 'node:perf_hooks';
-import { HasRegistry, Registry } from '../registry.js';
+import type { HasRegistry, Registry } from '../registry.js';
 import { ensureBasicTelemetryInstrumentation } from '../tracing.js';
-import { PathMetadata, SpanMetadata, TraceMetadata } from './types.js';
+import type { PathMetadata, SpanMetadata, TraceMetadata } from './types.js';
 
 export const spanMetadataAlsKey = 'core.tracing.instrumentation.span';
 export const traceMetadataAlsKey = 'core.tracing.instrumentation.trace';

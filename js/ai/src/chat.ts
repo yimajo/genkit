@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-import { StreamingCallback, z } from '@genkit-ai/core';
+import type { StreamingCallback, z } from '@genkit-ai/core';
 import {
   ATTR_PREFIX,
   SPAN_TYPE_ATTR,
   runInNewSpan,
 } from '@genkit-ai/core/tracing';
 import {
-  GenerateOptions,
-  GenerateResponse,
-  GenerateResponseChunk,
-  GenerateStreamOptions,
-  GenerateStreamResponse,
-  GenerationCommonConfigSchema,
-  MessageData,
-  Part,
+  type GenerateOptions,
+  type GenerateResponse,
+  type GenerateResponseChunk,
+  type GenerateStreamOptions,
+  type GenerateStreamResponse,
+  type GenerationCommonConfigSchema,
+  type MessageData,
+  type Part,
   generate,
   generateStream,
 } from './index.js';
 import {
-  BaseGenerateOptions,
-  Session,
-  SessionStore,
+  type BaseGenerateOptions,
+  type Session,
+  type SessionStore,
   runWithSession,
 } from './session.js';
 
@@ -174,13 +174,13 @@ export class Chat {
             streamingCallback =
               resolvedOptions.onChunk ?? resolvedOptions.streamingCallback;
           }
-          let request: GenerateOptions = {
+          const request: GenerateOptions = {
             ...(await this.requestBase),
             messages: this.messages,
             ...resolvedOptions,
           };
           metadata.input = resolvedOptions;
-          let response = await generate(this.session.registry, {
+          const response = await generate(this.session.registry, {
             ...request,
             onChunk: streamingCallback,
           });

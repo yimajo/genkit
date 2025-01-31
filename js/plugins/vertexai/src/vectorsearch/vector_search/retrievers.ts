@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-import { Genkit, RetrieverAction, retrieverRef, z } from 'genkit';
+import {
+  type Genkit,
+  type RetrieverAction,
+  retrieverRef,
+  type z,
+} from 'genkit';
 import { queryPublicEndpoint } from './query_public_endpoint';
 import {
   VertexAIVectorRetrieverOptionsSchema,
-  VertexVectorSearchOptions,
+  type VertexVectorSearchOptions,
 } from './types';
 import { getProjectNumber } from './utils';
 
@@ -91,7 +96,7 @@ export function vertexAiRetrievers<EmbedderCustomOptions extends z.ZodTypeAny>(
           throw new Error('Location is required to define Vertex AI retriever');
         }
 
-        let res = await queryPublicEndpoint({
+        const res = await queryPublicEndpoint({
           featureVector: queryEmbeddings,
           neighborCount: options?.k || DEFAULT_K,
           accessToken,

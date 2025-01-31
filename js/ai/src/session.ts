@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-import { z } from '@genkit-ai/core';
-import { Registry } from '@genkit-ai/core/registry';
+import type { z } from '@genkit-ai/core';
+import type { Registry } from '@genkit-ai/core/registry';
 import { v4 as uuidv4 } from 'uuid';
-import { Chat, ChatOptions, MAIN_THREAD, PromptRenderOptions } from './chat.js';
 import {
-  ExecutablePrompt,
-  GenerateOptions,
+  Chat,
+  type ChatOptions,
+  MAIN_THREAD,
+  type PromptRenderOptions,
+} from './chat.js';
+import {
+  type ExecutablePrompt,
+  type GenerateOptions,
   Message,
-  MessageData,
-  PromptGenerateOptions,
+  type MessageData,
+  type PromptGenerateOptions,
   isExecutablePrompt,
   tagAsPreamble,
 } from './index.js';

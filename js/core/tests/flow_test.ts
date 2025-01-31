@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import * as assert from 'assert';
 import { beforeEach, describe, it } from 'node:test';
+import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { defineFlow, run } from '../src/flow.js';
 import { defineAction, getContext, z } from '../src/index.js';
 import { Registry } from '../src/registry.js';

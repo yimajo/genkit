@@ -15,35 +15,35 @@
  */
 
 import {
-  Content,
+  type Content,
   FunctionCallingMode,
-  FunctionDeclaration,
+  type FunctionDeclaration,
   FunctionDeclarationSchemaType,
-  Part as GeminiPart,
-  GenerateContentCandidate,
-  GenerateContentResponse,
-  GenerativeModelPreview,
+  type Part as GeminiPart,
+  type GenerateContentCandidate,
+  type GenerateContentResponse,
+  type GenerativeModelPreview,
+  type GoogleSearchRetrieval,
   HarmBlockThreshold,
   HarmCategory,
-  StartChatParams,
-  ToolConfig,
-  VertexAI,
-  type GoogleSearchRetrieval,
+  type StartChatParams,
+  type ToolConfig,
+  type VertexAI,
 } from '@google-cloud/vertexai';
 import { ApiClient } from '@google-cloud/vertexai/build/src/resources/index.js';
-import { GENKIT_CLIENT_HEADER, Genkit, JSONSchema, z } from 'genkit';
+import { GENKIT_CLIENT_HEADER, type Genkit, type JSONSchema, z } from 'genkit';
 import {
-  CandidateData,
-  GenerateRequest,
+  type CandidateData,
+  type GenerateRequest,
   GenerationCommonConfigSchema,
-  MediaPart,
-  MessageData,
-  ModelAction,
-  ModelInfo,
-  ModelMiddleware,
-  ModelReference,
-  Part,
-  ToolDefinitionSchema,
+  type MediaPart,
+  type MessageData,
+  type ModelAction,
+  type ModelInfo,
+  type ModelMiddleware,
+  type ModelReference,
+  type Part,
+  type ToolDefinitionSchema,
   getBasicUsageStats,
   modelRef,
 } from 'genkit/model';
@@ -52,7 +52,7 @@ import {
   simulateSystemPrompt,
 } from 'genkit/model/middleware';
 import { GoogleAuth } from 'google-auth-library';
-import { PluginOptions } from './common/types.js';
+import type { PluginOptions } from './common/types.js';
 import { handleCacheIfNeeded } from './context-caching/index.js';
 import { extractCacheConfig } from './context-caching/utils.js';
 
@@ -755,7 +755,7 @@ export function defineGeminiModel(
         (request.output?.format === 'json' || !!request.output?.schema) &&
         tools.length === 0;
 
-      let chatRequest: StartChatParams = {
+      const chatRequest: StartChatParams = {
         systemInstruction,
         tools,
         toolConfig,

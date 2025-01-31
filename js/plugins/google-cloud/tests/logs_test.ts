@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import * as assert from 'assert';
+import { Writable } from 'stream';
 import {
   afterAll,
   beforeAll,
@@ -23,11 +25,9 @@ import {
   it,
   jest,
 } from '@jest/globals';
-import { ReadableSpan } from '@opentelemetry/sdk-trace-base';
-import * as assert from 'assert';
-import { GenerateResponseData, Genkit, genkit, z } from 'genkit';
+import type { ReadableSpan } from '@opentelemetry/sdk-trace-base';
+import { type GenerateResponseData, type Genkit, genkit, z } from 'genkit';
 import { SPAN_TYPE_ATTR, appendSpan } from 'genkit/tracing';
-import { Writable } from 'stream';
 import {
   __addTransportStreamForTesting,
   __forceFlushSpansForTesting,
@@ -504,7 +504,7 @@ async function getLogs(
   logCount: number,
   maxAttempts: number,
   logLines: string
-): Promise<String[]> {
+): Promise<string[]> {
   var attempts = 0;
   while (attempts++ < maxAttempts) {
     await new Promise((resolve) => setTimeout(resolve, 100));
@@ -520,9 +520,7 @@ async function getLogs(
 }
 
 /** Polls the in memory metric exporter until the genkit scope is found. */
-async function getExportedSpans(
-  maxAttempts: number = 200
-): Promise<ReadableSpan[]> {
+async function getExportedSpans(maxAttempts = 200): Promise<ReadableSpan[]> {
   __forceFlushSpansForTesting();
   var attempts = 0;
   while (attempts++ < maxAttempts) {

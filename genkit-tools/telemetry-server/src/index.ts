@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { TraceData } from '@genkit-ai/tools-common';
+import type * as http from 'http';
+import type { TraceData } from '@genkit-ai/tools-common';
 import express from 'express';
-import * as http from 'http';
-import { TraceStore } from './types';
+import type { TraceStore } from './types';
 
 export { FirestoreTraceStore } from './firestoreTraceStore.js';
 export { LocalFileTraceStore } from './localFileTraceStore.js';
@@ -63,7 +63,7 @@ export function startTelemetryServer(params: {
     const { limit, continuationToken } = request.query;
     response.json(
       await params.traceStore.list({
-        limit: limit ? parseInt(limit.toString()) : undefined,
+        limit: limit ? Number.parseInt(limit.toString()) : undefined,
         continuationToken: continuationToken
           ? continuationToken.toString()
           : undefined,

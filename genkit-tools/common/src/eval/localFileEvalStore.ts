@@ -15,17 +15,17 @@
  */
 
 import fs from 'fs';
-import { appendFile, readFile, writeFile } from 'fs/promises';
 import path from 'path';
+import { appendFile, readFile, writeFile } from 'fs/promises';
 import { logger } from '../utils/logger';
 
-import { ListEvalKeysRequest, ListEvalKeysResponse } from '../types/apis';
+import type { ListEvalKeysRequest, ListEvalKeysResponse } from '../types/apis';
 import {
-  EvalRun,
-  EvalRunKey,
+  type EvalRun,
+  type EvalRunKey,
   EvalRunKeySchema,
   EvalRunSchema,
-  EvalStore,
+  type EvalStore,
 } from '../types/eval';
 
 /**

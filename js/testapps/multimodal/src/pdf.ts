@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
+import fs from 'fs';
+import path from 'path';
 import {
   devLocalIndexerRef,
   devLocalRetrieverRef,
 } from '@genkit-ai/dev-local-vectorstore';
 import { startFlowServer } from '@genkit-ai/express';
 import fileTypeChecker from 'file-type-checker';
-import fs from 'fs';
 import { Document, z } from 'genkit';
 import { chunk } from 'llm-chunk';
-import path from 'path';
 import { PDFDocument, PDFRawStream } from 'pdf-lib';
 import pdf from 'pdf-parse';
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import AdmZip from 'adm-zip';
-import axios from 'axios';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import path from 'path';
+import AdmZip from 'adm-zip';
+import axios from 'axios';
 
 interface DownloadAndExtractOptions {
   fileUrl: string;

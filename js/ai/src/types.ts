@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Action, z } from '@genkit-ai/core';
+import { type Action, z } from '@genkit-ai/core';
 import { toJsonSchema } from '@genkit-ai/core/schema';
 
 export const LlmStatsSchema = z.object({

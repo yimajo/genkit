@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
+import type { Server } from 'http';
 import * as bodyParser from 'body-parser';
-import cors, { CorsOptions } from 'cors';
-import express, { RequestHandler } from 'express';
-import { Action, Flow, runWithStreamingCallback, z } from 'genkit';
+import cors, { type CorsOptions } from 'cors';
+import express, { type RequestHandler } from 'express';
+import {
+  type Action,
+  type Flow,
+  runWithStreamingCallback,
+  type z,
+} from 'genkit';
 import { logger } from 'genkit/logging';
-import { Server } from 'http';
 import { getErrorMessage, getErrorStack } from './utils';
 
 const streamDelimiter = '\n\n';
@@ -43,13 +48,11 @@ export interface AuthPolicyContext<
  * performs checks before the flow runs. If this throws, the flow will not
  * be executed.
  */
-export interface AuthPolicy<
+export type AuthPolicy<
   I extends z.ZodTypeAny = z.ZodTypeAny,
   O extends z.ZodTypeAny = z.ZodTypeAny,
   S extends z.ZodTypeAny = z.ZodTypeAny,
-> {
-  (ctx: AuthPolicyContext<I, O, S>): void | Promise<void>;
-}
+> = (ctx: AuthPolicyContext<I, O, S>) => void | Promise<void>;
 
 /**
  * For express-based flows, req.auth should contain the value to bepassed into
@@ -77,7 +80,7 @@ export function expressHandler<
     response: express.Response
   ): Promise<void> => {
     const { stream } = request.query;
-    let input = request.body.data;
+    const input = request.body.data;
     const auth = request.auth;
 
     try {
@@ -280,7 +283,7 @@ export class FlowServer {
     });
     this.port =
       this.options?.port ||
-      (process.env.PORT ? parseInt(process.env.PORT) : 0) ||
+      (process.env.PORT ? Number.parseInt(process.env.PORT) : 0) ||
       3400;
     this.server = server.listen(this.port, () => {
       logger.debug(`Flow server running on http://localhost:${this.port}`);

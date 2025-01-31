@@ -16,17 +16,17 @@
 
 //  Sample app for using the proposed Vertex AI plugin retriever and indexer with a local file (just as a demo).
 
-import { Document, genkit, z } from 'genkit';
 // important imports for this sample:
 import { textEmbedding004, vertexAI } from '@genkit-ai/vertexai';
 import {
-  vertexAIVectorSearch,
-  vertexAiIndexerRef,
-  vertexAiRetrieverRef,
   type DocumentIndexer,
   type DocumentRetriever,
   type Neighbor,
+  vertexAIVectorSearch,
+  vertexAiIndexerRef,
+  vertexAiRetrieverRef,
 } from '@genkit-ai/vertexai/vectorsearch';
+import { Document, genkit, z } from 'genkit';
 
 // // Environment variables set with dotenv for simplicity of sample
 import {

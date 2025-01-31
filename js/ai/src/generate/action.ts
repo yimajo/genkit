@@ -15,15 +15,15 @@
  */
 
 import {
-  Action,
+  type Action,
   defineAction,
   getStreamingCallback,
   runWithStreamingCallback,
   stripUndefinedProps,
-  z,
+  type z,
 } from '@genkit-ai/core';
 import { logger } from '@genkit-ai/core/logging';
-import { Registry } from '@genkit-ai/core/registry';
+import type { Registry } from '@genkit-ai/core/registry';
 import { toJsonSchema } from '@genkit-ai/core/schema';
 import { SPAN_TYPE_ATTR, runInNewSpan } from '@genkit-ai/core/tracing';
 import {
@@ -31,7 +31,7 @@ import {
   resolveFormat,
   resolveInstructions,
 } from '../formats/index.js';
-import { Formatter } from '../formats/types.js';
+import type { Formatter } from '../formats/types.js';
 import {
   GenerateResponse,
   GenerateResponseChunk,
@@ -39,23 +39,23 @@ import {
   tagAsPreamble,
 } from '../generate.js';
 import {
-  GenerateActionOptions,
+  type GenerateActionOptions,
   GenerateActionOptionsSchema,
-  GenerateRequest,
-  GenerateRequestSchema,
-  GenerateResponseChunkData,
+  type GenerateRequest,
+  type GenerateRequestSchema,
+  type GenerateResponseChunkData,
   GenerateResponseChunkSchema,
-  GenerateResponseData,
+  type GenerateResponseData,
   GenerateResponseSchema,
-  ModelAction,
-  ModelInfo,
-  ModelMiddleware,
-  ModelRequest,
-  Part,
-  Role,
+  type ModelAction,
+  type ModelInfo,
+  type ModelMiddleware,
+  type ModelRequest,
+  type Part,
+  type Role,
   resolveModel,
 } from '../model.js';
-import { ToolAction, resolveTools, toToolDefinition } from '../tool.js';
+import { type ToolAction, resolveTools, toToolDefinition } from '../tool.js';
 import {
   assertValidToolNames,
   resolveToolRequests,
@@ -110,8 +110,8 @@ export async function generateHelper(
     messageIndex?: number;
   }
 ): Promise<GenerateResponseData> {
-  let currentTurn = options.currentTurn ?? 0;
-  let messageIndex = options.messageIndex ?? 0;
+  const currentTurn = options.currentTurn ?? 0;
+  const messageIndex = options.messageIndex ?? 0;
   // do tracing
   return await runInNewSpan(
     registry,

@@ -1,3 +1,4 @@
+import type * as http from 'http';
 /**
  * Copyright 2024 Google LLC
  *
@@ -17,11 +18,10 @@ import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
 import * as express from 'express';
 import { initializeApp } from 'firebase/app';
 import { getFunctions, httpsCallableFromURL } from 'firebase/functions';
-import { Genkit, genkit } from 'genkit';
+import { type Genkit, genkit } from 'genkit';
 import { runFlow, streamFlow } from 'genkit/client';
 import * as getPort from 'get-port';
-import * as http from 'http';
-import { RequestWithAuth, noAuth, onFlow } from '../lib/functions.js';
+import { type RequestWithAuth, noAuth, onFlow } from '../lib/functions.js';
 
 describe('function', () => {
   let ai: Genkit;

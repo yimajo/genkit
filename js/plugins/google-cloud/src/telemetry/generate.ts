@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import { ValueType } from '@opentelemetry/api';
-import { ReadableSpan } from '@opentelemetry/sdk-trace-base';
 import { createHash } from 'crypto';
+import { ValueType } from '@opentelemetry/api';
+import type { ReadableSpan } from '@opentelemetry/sdk-trace-base';
 import {
-  GenerateRequestData,
-  GenerateResponseData,
-  GenerationUsage,
   GENKIT_VERSION,
-  MediaPart,
-  Part,
-  ToolRequestPart,
-  ToolResponsePart,
+  type GenerateRequestData,
+  type GenerateResponseData,
+  type GenerationUsage,
+  type MediaPart,
+  type Part,
+  type ToolRequestPart,
+  type ToolResponsePart,
 } from 'genkit';
 import { logger } from 'genkit/logging';
-import { PathMetadata, toDisplayPath } from 'genkit/tracing';
+import { type PathMetadata, toDisplayPath } from 'genkit/tracing';
 import {
-  internalMetricNamespaceWrap,
   MetricCounter,
   MetricHistogram,
-  Telemetry,
+  type Telemetry,
+  internalMetricNamespaceWrap,
 } from '../metrics.js';
 import {
   createCommonLogAttributes,

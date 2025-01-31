@@ -15,16 +15,16 @@
  */
 
 import * as assert from 'assert';
-import express from 'express';
-import { GenerateResponseData, Genkit, genkit, z } from 'genkit';
-import { runFlow, streamFlow } from 'genkit/client';
-import { GenerateResponseChunkData, ModelAction } from 'genkit/model';
-import getPort from 'get-port';
-import * as http from 'http';
+import type * as http from 'http';
 import { afterEach, beforeEach, describe, it } from 'node:test';
+import express from 'express';
+import { type GenerateResponseData, type Genkit, genkit, z } from 'genkit';
+import { runFlow, streamFlow } from 'genkit/client';
+import type { GenerateResponseChunkData, ModelAction } from 'genkit/model';
+import getPort from 'get-port';
 import {
-  FlowServer,
-  RequestWithAuth,
+  type FlowServer,
+  type RequestWithAuth,
   expressHandler,
   startFlowServer,
   withAuth,

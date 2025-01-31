@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import * as fs from 'fs/promises';
 import * as path from 'path';
-import { Runtime } from '../manager/types';
+import * as fs from 'fs/promises';
+import type { Runtime } from '../manager/types';
 
 /**
  * Finds the project root by looking for a `package.json` file.

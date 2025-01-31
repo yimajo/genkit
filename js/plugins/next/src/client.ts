@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-import { Action } from '@genkit-ai/core';
+import type { Action } from '@genkit-ai/core';
 import {
   runFlow as baseRunFlow,
   streamFlow as baseStreamFlow,
 } from 'genkit/client';
 
-type Input<A extends Action> =
-  A extends Action<infer I, any, any> ? I['_output'] : never;
-type Output<A extends Action> =
-  A extends Action<any, infer O, any> ? O['_output'] : never;
-type Stream<A extends Action> =
-  A extends Action<any, any, infer S> ? S['_output'] : never;
+type Input<A extends Action> = A extends Action<infer I, any, any>
+  ? I['_output']
+  : never;
+type Output<A extends Action> = A extends Action<any, infer O, any>
+  ? O['_output']
+  : never;
+type Stream<A extends Action> = A extends Action<any, any, infer S>
+  ? S['_output']
+  : never;
 
 export interface RequestData<T> {
   url: string;

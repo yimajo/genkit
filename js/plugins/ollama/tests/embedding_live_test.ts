@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 import * as assert from 'assert';
-import { genkit } from 'genkit';
 import { describe, it } from 'node:test';
+import { genkit } from 'genkit';
 import { defineOllamaEmbedder } from '../src/embeddings.js'; // Adjust the import path as necessary
 import { ollama } from '../src/index.js';
-import { OllamaPluginParams } from '../src/types.js'; // Adjust the import path as necessary
+import type { OllamaPluginParams } from '../src/types.js'; // Adjust the import path as necessary
 // Utility function to parse command-line arguments
 function parseArgs() {
   const args = process.argv.slice(2);

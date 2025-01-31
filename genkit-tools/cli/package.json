@@ -3,12 +3,7 @@
   "version": "1.0.0-rc.12",
   "description": "CLI for interacting with the Google Genkit AI framework",
   "license": "Apache-2.0",
-  "keywords": [
-    "genkit",
-    "ai",
-    "genai",
-    "generative-ai"
-  ],
+  "keywords": ["genkit", "ai", "genai", "generative-ai"],
   "author": "genkit",
   "bin": {
     "genkit": "dist/bin/genkit.js"

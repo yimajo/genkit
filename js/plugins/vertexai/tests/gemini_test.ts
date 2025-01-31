@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { GenerateContentCandidate } from '@google-cloud/vertexai';
 import * as assert from 'assert';
-import { MessageData } from 'genkit';
 import { describe, it } from 'node:test';
+import type { GenerateContentCandidate } from '@google-cloud/vertexai';
+import type { MessageData } from 'genkit';
 import {
   cleanSchema,
   fromGeminiCandidate,

@@ -18,9 +18,9 @@ import {
   LocalFileTraceStore,
   startTelemetryServer,
 } from '@genkit-ai/telemetry-server';
-import { Status } from '@genkit-ai/tools-common';
+import type { Status } from '@genkit-ai/tools-common';
 import {
-  GenkitToolsError,
+  type GenkitToolsError,
   RuntimeManager,
 } from '@genkit-ai/tools-common/manager';
 import { logger } from '@genkit-ai/tools-common/utils';

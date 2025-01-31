@@ -14,37 +14,37 @@
  * limitations under the License.
  */
 
+import { existsSync, readFileSync, readdirSync } from 'fs';
+import { basename, join, resolve } from 'path';
 import {
-  Action,
-  ActionAsyncParams,
-  ActionContext,
-  defineActionAsync,
+  type Action,
+  type ActionAsyncParams,
+  type ActionContext,
   GenkitError,
+  type JSONSchema7,
+  defineActionAsync,
   getContext,
-  JSONSchema7,
   stripUndefinedProps,
-  z,
+  type z,
 } from '@genkit-ai/core';
 import { lazy } from '@genkit-ai/core/async';
 import { logger } from '@genkit-ai/core/logging';
-import { Registry } from '@genkit-ai/core/registry';
+import type { Registry } from '@genkit-ai/core/registry';
 import { toJsonSchema } from '@genkit-ai/core/schema';
-import { Message as DpMessage, PromptFunction } from 'dotprompt';
-import { existsSync, readdirSync, readFileSync } from 'fs';
-import { basename, join, resolve } from 'path';
-import { DocumentData } from './document.js';
+import type { Message as DpMessage, PromptFunction } from 'dotprompt';
+import type { DocumentData } from './document.js';
 import {
+  type GenerateOptions,
+  type GenerateResponse,
+  type GenerateStreamResponse,
+  type OutputOptions,
+  type ToolChoice,
   generate,
-  GenerateOptions,
-  GenerateResponse,
   generateStream,
-  GenerateStreamResponse,
-  OutputOptions,
   toGenerateRequest,
-  ToolChoice,
 } from './generate.js';
 import { Message } from './message.js';
-import {
+import type {
   GenerateRequest,
   GenerateRequestSchema,
   GenerateResponseChunkSchema,
@@ -56,8 +56,8 @@ import {
   ModelReference,
   Part,
 } from './model.js';
-import { getCurrentSession, Session } from './session.js';
-import { ToolAction, ToolArgument } from './tool.js';
+import { type Session, getCurrentSession } from './session.js';
+import type { ToolAction, ToolArgument } from './tool.js';
 
 /**
  * Prompt action.
@@ -657,7 +657,7 @@ export function isExecutablePrompt(obj: any): boolean {
 
 export function loadPromptFolder(
   registry: Registry,
-  dir: string = './prompts',
+  dir = './prompts',
   ns: string
 ): void {
   const promptsPath = resolve(dir);
@@ -685,7 +685,7 @@ export function loadPromptFolder(
           // If this prompt is in a subdirectory, we need to include that
           // in the namespace to prevent naming conflicts.
           let prefix = '';
-          let name = dirEnt.name;
+          const name = dirEnt.name;
           if (promptsPath !== parentPath) {
             prefix = parentPath.replace(`${promptsPath}/`, '') + '/';
           }
@@ -808,7 +808,7 @@ async function lookupPrompt<
   name: string,
   variant?: string
 ): Promise<ExecutablePrompt<I, O, CustomOptions>> {
-  let registryPrompt = await registry.lookupAction(
+  const registryPrompt = await registry.lookupAction(
     registryLookupKey(name, variant)
   );
   if (registryPrompt) {

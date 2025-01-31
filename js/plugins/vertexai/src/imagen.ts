@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import { Genkit, z } from 'genkit';
+import { type Genkit, z } from 'genkit';
 import {
-  CandidateData,
-  GenerateRequest,
+  type CandidateData,
+  type GenerateRequest,
   GenerationCommonConfigSchema,
-  ModelAction,
-  ModelReference,
+  type ModelAction,
+  type ModelReference,
   getBasicUsageStats,
   modelRef,
 } from 'genkit/model';
-import { GoogleAuth } from 'google-auth-library';
-import { PluginOptions } from './common/types.js';
-import { PredictClient, predictModel } from './predict.js';
+import type { GoogleAuth } from 'google-auth-library';
+import type { PluginOptions } from './common/types.js';
+import { type PredictClient, predictModel } from './predict.js';
 
 const ImagenConfigSchema = GenerationCommonConfigSchema.extend({
   /** Language of the prompt text. */

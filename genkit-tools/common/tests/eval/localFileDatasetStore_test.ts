@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import fs from 'fs';
 import {
   afterEach,
   beforeEach,
@@ -22,14 +23,13 @@ import {
   it,
   jest,
 } from '@jest/globals';
-import fs from 'fs';
 import * as uuid from 'uuid';
 import { LocalFileDatasetStore } from '../../src/eval/localFileDatasetStore';
 import {
   CreateDatasetRequestSchema,
   UpdateDatasetRequestSchema,
 } from '../../src/types/apis';
-import { Dataset, DatasetStore } from '../../src/types/eval';
+import type { Dataset, DatasetStore } from '../../src/types/eval';
 
 const FAKE_TIME = new Date('2024-02-03T12:05:33.243Z');
 
@@ -305,7 +305,7 @@ describe('localFileDatasetStore', () => {
   describe('updateDataset', () => {
     it('succeeds for existing dataset -- append', async () => {
       fs.existsSync = jest.fn(() => true);
-      let metadataMap = {
+      const metadataMap = {
         [SAMPLE_DATASET_ID_1]: SAMPLE_DATASET_METADATA_1_V1,
         [SAMPLE_DATASET_ID_2]: SAMPLE_DATASET_METADATA_2,
       };
@@ -356,7 +356,7 @@ describe('localFileDatasetStore', () => {
 
     it('succeeds for existing dataset -- append and replace', async () => {
       fs.existsSync = jest.fn(() => true);
-      let metadataMap = {
+      const metadataMap = {
         [SAMPLE_DATASET_ID_1]: SAMPLE_DATASET_METADATA_1_V1,
         [SAMPLE_DATASET_ID_2]: SAMPLE_DATASET_METADATA_2,
       };
@@ -418,7 +418,7 @@ describe('localFileDatasetStore', () => {
 
     it('succeeds for existing dataset -- with schema', async () => {
       fs.existsSync = jest.fn(() => true);
-      let metadataMap = {
+      const metadataMap = {
         [SAMPLE_DATASET_ID_1]: SAMPLE_DATASET_METADATA_1_V1,
         [SAMPLE_DATASET_ID_2]: SAMPLE_DATASET_METADATA_2,
       };
@@ -512,7 +512,7 @@ describe('localFileDatasetStore', () => {
   describe('deleteDataset', () => {
     it('deletes dataset and updates index', async () => {
       fs.promises.rm = jest.fn(async () => Promise.resolve());
-      let metadataMap = {
+      const metadataMap = {
         [SAMPLE_DATASET_ID_1]: SAMPLE_DATASET_METADATA_1_V1,
         [SAMPLE_DATASET_ID_2]: SAMPLE_DATASET_METADATA_2,
       };
@@ -525,7 +525,7 @@ describe('localFileDatasetStore', () => {
       expect(fs.promises.rm).toHaveBeenCalledWith(
         expect.stringContaining(`datasets/${SAMPLE_DATASET_ID_1}.json`)
       );
-      let updatedMetadataMap = {
+      const updatedMetadataMap = {
         [SAMPLE_DATASET_ID_2]: SAMPLE_DATASET_METADATA_2,
       };
       expect(fs.promises.writeFile).toHaveBeenCalledWith(
@@ -553,7 +553,7 @@ describe('localFileDatasetStore', () => {
     });
 
     it('throws if no unique ID is generated', async () => {
-      let metadataMap = {
+      const metadataMap = {
         ['some-id']: SAMPLE_DATASET_METADATA_1_V1,
       };
       fs.promises.readFile = jest.fn(async () =>
@@ -584,7 +584,7 @@ describe('localFileDatasetStore', () => {
     });
 
     it('throws if UUID is not unique', async () => {
-      let metadataMap = {
+      const metadataMap = {
         ['12345678']: SAMPLE_DATASET_METADATA_1_V1,
       };
       fs.promises.readFile = jest.fn(async () =>

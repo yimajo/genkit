@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
+import { randomUUID } from 'crypto';
 import {
-  SpanData,
+  type SpanData,
   SpanDataSchema,
-  TraceData,
+  type TraceData,
   TraceDataSchema,
 } from '@genkit-ai/tools-common';
 import { Firestore } from '@google-cloud/firestore';
-import { randomUUID } from 'crypto';
-import { TraceQuery, TraceQueryResponse, TraceStore } from './types';
+import type { TraceQuery, TraceQueryResponse, TraceStore } from './types';
 
 const DOC_MAX_SIZE = 1_000_000;
 
@@ -71,7 +71,7 @@ export class FirestoreTraceStore implements TraceStore {
 
     const batches = rebatchSpans(traceData);
 
-    let batchWrite = this.db.batch();
+    const batchWrite = this.db.batch();
     batchWrite.set(
       this.db.collection(this.collection).doc(traceId),
       traceInfo,
@@ -125,7 +125,7 @@ export class FirestoreTraceStore implements TraceStore {
       .collection(this.collection)
       .orderBy('startTime', 'desc');
     if (query?.continuationToken) {
-      fsQuery = fsQuery.startAfter(parseInt(query.continuationToken));
+      fsQuery = fsQuery.startAfter(Number.parseInt(query.continuationToken));
     }
     fsQuery = fsQuery.limit(limit);
 

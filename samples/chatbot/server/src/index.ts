@@ -20,7 +20,7 @@ import {
   vertexAIEvaluation,
 } from '@genkit-ai/vertexai/evaluation';
 import { llama31, vertexAIModelGarden } from '@genkit-ai/vertexai/modelgarden';
-import { ModelReference, PartSchema, genkit, run } from 'genkit';
+import { type ModelReference, PartSchema, genkit, run } from 'genkit';
 import { GenerateResponseChunkSchema } from 'genkit/model';
 import { z } from 'zod';
 import { inMemoryStore } from './memory.js';

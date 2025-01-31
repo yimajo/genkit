@@ -15,20 +15,20 @@
  */
 
 import { devLocalVectorstore } from '@genkit-ai/dev-local-vectorstore';
-import { genkitEval, GenkitMetric } from '@genkit-ai/evaluator';
+import { GenkitMetric, genkitEval } from '@genkit-ai/evaluator';
 import { enableFirebaseTelemetry } from '@genkit-ai/firebase';
 import { gemini15Flash, googleAI } from '@genkit-ai/googleai';
 import { textEmbedding004, vertexAI } from '@genkit-ai/vertexai';
 import {
-  vertexAIEvaluation,
   VertexAIEvaluationMetricType,
+  vertexAIEvaluation,
 } from '@genkit-ai/vertexai/evaluation';
 import {
-  claude35Sonnet,
-  claude35SonnetV2,
   claude3Haiku,
   claude3Opus,
   claude3Sonnet,
+  claude35Sonnet,
+  claude35SonnetV2,
   codestral,
   llama31,
   llama32,

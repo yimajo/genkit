@@ -15,9 +15,9 @@
  */
 
 import * as assert from 'assert';
-import { genkit } from 'genkit';
-import { ModelInfo } from 'genkit/model';
 import { describe, it } from 'node:test';
+import { genkit } from 'genkit';
+import type { ModelInfo } from 'genkit/model';
 import { __setFakeDerivedParams } from '../src/common/index.js';
 import { GENERIC_GEMINI_MODEL, gemini } from '../src/gemini.js';
 import vertexAI, { gemini15Flash, gemini15Pro } from '../src/index.js';

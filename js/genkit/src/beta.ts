@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { ExecutablePrompt, isExecutablePrompt } from '@genkit-ai/ai';
-import { Chat, ChatOptions } from '@genkit-ai/ai/chat';
+import { type ExecutablePrompt, isExecutablePrompt } from '@genkit-ai/ai';
+import type { Chat, ChatOptions } from '@genkit-ai/ai/chat';
 import {
   Session,
-  SessionData,
+  type SessionData,
   SessionError,
-  SessionOptions,
+  type SessionOptions,
   getCurrentSession,
 } from '@genkit-ai/ai/session';
 import { v4 as uuidv4 } from 'uuid';
-import { Genkit, GenkitOptions } from './genkit';
+import { Genkit, type GenkitOptions } from './genkit';
 
 /**
  * WARNING: these APIs are considered unstable and subject to frequent breaking changes that may not honor semver.

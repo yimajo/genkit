@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-import { EmbedderReference, Genkit, ModelReference, z } from 'genkit';
 import {
-  BaseEvalDataPoint,
-  EvalResponse,
-  Score,
+  type EmbedderReference,
+  type Genkit,
+  type ModelReference,
+  z,
+} from 'genkit';
+import {
+  type BaseEvalDataPoint,
+  type EvalResponse,
+  type Score,
   evaluatorRef,
 } from 'genkit/evaluator';
-import { GenkitPlugin, genkitPlugin } from 'genkit/plugin';
+import { type GenkitPlugin, genkitPlugin } from 'genkit/plugin';
 import {
   answerRelevancyScore,
   faithfulnessScore,

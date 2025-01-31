@@ -15,7 +15,7 @@
  */
 
 import { runInActionRuntimeContext } from './action.js';
-import { HasRegistry, Registry } from './registry.js';
+import type { HasRegistry, Registry } from './registry.js';
 
 const contextAlsKey = 'core.auth.context';
 

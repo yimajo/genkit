@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-import { Action, defineAction, z } from '@genkit-ai/core';
-import { Registry } from '@genkit-ai/core/registry';
-import { Part, PartSchema } from './document.js';
-import { Document, DocumentData, DocumentDataSchema } from './retriever.js';
+import { type Action, defineAction, z } from '@genkit-ai/core';
+import type { Registry } from '@genkit-ai/core/registry';
+import { type Part, PartSchema } from './document.js';
+import {
+  Document,
+  type DocumentData,
+  DocumentDataSchema,
+} from './retriever.js';
 
 export type RerankerFn<RerankerOptions extends z.ZodTypeAny> = (
   query: Document,

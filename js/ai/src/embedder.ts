@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Action, defineAction, z } from '@genkit-ai/core';
-import { Registry } from '@genkit-ai/core/registry';
-import { Document, DocumentData, DocumentDataSchema } from './document.js';
+import { type Action, defineAction, z } from '@genkit-ai/core';
+import type { Registry } from '@genkit-ai/core/registry';
+import { Document, type DocumentData, DocumentDataSchema } from './document.js';
 
 /**
  * A batch (array) of embeddings.
@@ -144,7 +144,7 @@ export async function embed<CustomOptions extends z.ZodTypeAny = z.ZodTypeAny>(
   registry: Registry,
   params: EmbedderParams<CustomOptions>
 ): Promise<Embedding[]> {
-  let embedder = await resolveEmbedder(registry, params);
+  const embedder = await resolveEmbedder(registry, params);
   if (!embedder.embedderAction) {
     let embedderId: string;
     if (typeof params.embedder === 'string') {

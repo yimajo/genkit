@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
+import { type ChildProcess, spawn } from 'child_process';
+import path from 'path';
 import {
   findServersDir,
   logger,
   waitUntilHealthy,
 } from '@genkit-ai/tools-common/utils';
 import axios from 'axios';
-import { ChildProcess, spawn } from 'child_process';
 import * as clc from 'colorette';
 import { Command } from 'commander';
 import fs from 'fs/promises';
 import getPort, { makeRange } from 'get-port';
 import open from 'open';
-import path from 'path';
 
 interface StartOptions {
   port: string;

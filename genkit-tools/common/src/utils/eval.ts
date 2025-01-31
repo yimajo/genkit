@@ -16,34 +16,34 @@
 
 import { randomUUID } from 'crypto';
 import { createReadStream } from 'fs';
+import { createInterface } from 'readline';
 import { readFile } from 'fs/promises';
 import * as inquirer from 'inquirer';
-import { createInterface } from 'readline';
-import { RuntimeManager } from '../manager';
+import type { RuntimeManager } from '../manager';
 import {
-  EvalField,
-  EvaluationExtractor,
-  InputStepSelector,
-  OutputStepSelector,
-  StepSelector,
+  type EvalField,
+  type EvaluationExtractor,
+  type InputStepSelector,
+  type OutputStepSelector,
+  type StepSelector,
   findToolsConfig,
   isEvalField,
 } from '../plugin';
 import {
-  Dataset,
+  type Dataset,
   DatasetSchema,
-  EvalInputDataset,
+  type EvalInputDataset,
   EvalInputDatasetSchema,
   EvaluationDatasetSchema,
-  EvaluationSample,
+  type EvaluationSample,
   EvaluationSampleSchema,
   InferenceDatasetSchema,
-  InferenceSample,
+  type InferenceSample,
   InferenceSampleSchema,
 } from '../types';
-import { Action } from '../types/action';
-import { DocumentData, RetrieverResponse } from '../types/retrievers';
-import { NestedSpanData, TraceData } from '../types/trace';
+import type { Action } from '../types/action';
+import type { DocumentData, RetrieverResponse } from '../types/retrievers';
+import type { NestedSpanData, TraceData } from '../types/trace';
 import { logger } from './logger';
 import { stackTraceSpans } from './trace';
 
@@ -173,7 +173,7 @@ function getExtractorFromStepSelector(
 ): EvalExtractorFn {
   return (trace: TraceData) => {
     let stepName: string | undefined = undefined;
-    let selectedAttribute: string = 'genkit:output'; // default
+    let selectedAttribute = 'genkit:output'; // default
 
     if (Object.hasOwn(stepSelector, 'inputOf')) {
       stepName = (stepSelector as InputStepSelector).inputOf;
@@ -191,7 +191,7 @@ function getExtractorFromStepSelector(
 }
 
 function getExtractorMap(extractor: EvaluationExtractor) {
-  let extractorMap: Record<EvalField, EvalExtractorFn> = {} as Record<
+  const extractorMap: Record<EvalField, EvalExtractorFn> = {} as Record<
     EvalField,
     EvalExtractorFn
   >;
@@ -312,7 +312,7 @@ async function readLines(fileName: string): Promise<string[]> {
   const fileStream = createReadStream(fileName);
   const rl = createInterface({
     input: fileStream,
-    crlfDelay: Infinity,
+    crlfDelay: Number.POSITIVE_INFINITY,
   });
 
   for await (const line of rl) {

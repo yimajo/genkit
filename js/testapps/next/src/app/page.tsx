@@ -1,6 +1,6 @@
 'use client';
 
-import { tellJoke } from '@/genkit/joke';
+import type { tellJoke } from '@/genkit/joke';
 import { runFlow, streamFlow } from '@genkit-ai/next/client';
 import { useEffect, useRef, useState } from 'react';
 import styles from './page.module.css';
@@ -44,19 +44,22 @@ export default function Home() {
           type="text"
           alt="Joke type"
           placeholder="Joke type"
-          ref={inputRef}></input>
+          ref={inputRef}
+        ></input>
         <button
           onClick={() => {
             run(inputRef.current!.value, setResponse);
             focus();
-          }}>
+          }}
+        >
           Run
         </button>
         <button
           onClick={() => {
             stream(inputRef.current!.value, setResponse);
             focus();
-          }}>
+          }}
+        >
           Stream
         </button>
       </div>

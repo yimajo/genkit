@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import similarity from 'compute-cosine-similarity';
-import { Genkit, ModelArgument, z } from 'genkit';
-import { EmbedderArgument } from 'genkit/embedder';
-import { BaseEvalDataPoint, Score } from 'genkit/evaluator';
 import path from 'path';
+import similarity from 'compute-cosine-similarity';
+import { type Genkit, type ModelArgument, z } from 'genkit';
+import type { EmbedderArgument } from 'genkit/embedder';
+import type { BaseEvalDataPoint, Score } from 'genkit/evaluator';
 import { getDirName, loadPromptFile, renderText } from './helper.js';
 
 const AnswerRelevancyResponseSchema = z.object({

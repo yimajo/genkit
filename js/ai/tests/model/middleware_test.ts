@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import { z } from '@genkit-ai/core';
-import { Registry } from '@genkit-ai/core/registry';
 import * as assert from 'assert';
 import { beforeEach, describe, it } from 'node:test';
-import { DocumentData } from '../../src/document.js';
+import { z } from '@genkit-ai/core';
+import { Registry } from '@genkit-ai/core/registry';
+import type { DocumentData } from '../../src/document.js';
 import { configureFormats } from '../../src/formats/index.js';
 import { generate } from '../../src/generate.js';
 import {
-  GenerateRequest,
-  GenerateResponseData,
-  MessageData,
+  type GenerateRequest,
+  type GenerateResponseData,
+  type MessageData,
   defineModel,
 } from '../../src/model.js';
 import {
-  AugmentWithContextOptions,
+  type AugmentWithContextOptions,
   CONTEXT_PREFACE,
   augmentWithContext,
   simulateConstrainedGeneration,
@@ -81,12 +81,11 @@ describe('validateSupport', () => {
   };
 
   let nextCalled = false;
-  const noopNext: (
-    req?: GenerateRequest
-  ) => Promise<GenerateResponseData> = async () => {
-    nextCalled = true;
-    return {};
-  };
+  const noopNext: (req?: GenerateRequest) => Promise<GenerateResponseData> =
+    async () => {
+      nextCalled = true;
+      return {};
+    };
   beforeEach(() => (nextCalled = false));
 
   it('accepts anything when no supports is present', () => {
@@ -405,7 +404,7 @@ describe('simulateConstrainedGeneration', () => {
   });
 
   it('injects the instructions into the request', async () => {
-    let pm = defineProgrammableModel(registry);
+    const pm = defineProgrammableModel(registry);
     pm.handleResponse = async (req, sc) => {
       return {
         message: {
@@ -457,7 +456,7 @@ describe('simulateConstrainedGeneration', () => {
   });
 
   it('injects the instructions into the request idempotently', async () => {
-    let pm = defineProgrammableModel(registry);
+    const pm = defineProgrammableModel(registry);
     pm.handleResponse = async (req, sc) => {
       return {
         message: {
@@ -510,7 +509,7 @@ describe('simulateConstrainedGeneration', () => {
   });
 
   it('relies on native support -- no instructions', async () => {
-    let pm = defineProgrammableModel(registry, {
+    const pm = defineProgrammableModel(registry, {
       supports: { constrained: true },
     });
     pm.handleResponse = async (req, sc) => {

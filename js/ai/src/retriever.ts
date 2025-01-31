@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { Action, GenkitError, defineAction, z } from '@genkit-ai/core';
-import { Registry } from '@genkit-ai/core/registry';
-import { Document, DocumentData, DocumentDataSchema } from './document.js';
-import { EmbedderInfo } from './embedder.js';
+import { type Action, GenkitError, defineAction, z } from '@genkit-ai/core';
+import type { Registry } from '@genkit-ai/core/registry';
+import { Document, type DocumentData, DocumentDataSchema } from './document.js';
+import type { EmbedderInfo } from './embedder.js';
 
 export {
   Document,
@@ -249,7 +249,9 @@ export async function retrieve<CustomOptions extends z.ZodTypeAny>(
  * A type that can be used to pass an indexer as an argument, either using a reference or an action.
  */
 export type IndexerArgument<CustomOptions extends z.ZodTypeAny = z.ZodTypeAny> =
-  IndexerReference<CustomOptions> | IndexerAction<CustomOptions> | string;
+  | IndexerReference<CustomOptions>
+  | IndexerAction<CustomOptions>
+  | string;
 
 /**
  * Options passed to the index function.

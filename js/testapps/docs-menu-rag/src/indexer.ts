@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import path from 'path';
 import { devLocalIndexerRef } from '@genkit-ai/dev-local-vectorstore';
 import { readFile } from 'fs/promises';
 import { z } from 'genkit';
 import { Document } from 'genkit/retriever';
 import { chunk } from 'llm-chunk';
-import path from 'path';
 import pdf from 'pdf-parse';
 import { ai } from './index.js';
 

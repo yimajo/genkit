@@ -23,7 +23,7 @@ import { z } from 'genkit';
 import { ai } from '../genkit.js';
 import {
   AnswerOutputSchema,
-  MenuItem,
+  type MenuItem,
   MenuItemSchema,
   MenuQuestionInputSchema,
 } from '../types';

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Action, EvalInputDataset } from '@genkit-ai/tools-common';
+import type { Action, EvalInputDataset } from '@genkit-ai/tools-common';
 import {
-  EvalExporter,
+  type EvalExporter,
   getAllEvaluatorActions,
   getExporterForString,
   getMatchingEvaluatorActions,

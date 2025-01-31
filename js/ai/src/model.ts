@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
+import { performance } from 'node:perf_hooks';
 import {
-  Action,
-  defineAction,
+  type Action,
   GenkitError,
+  type SimpleMiddleware,
+  type StreamingCallback,
+  defineAction,
   getStreamingCallback,
-  SimpleMiddleware,
-  StreamingCallback,
   z,
 } from '@genkit-ai/core';
 import { logger } from '@genkit-ai/core/logging';
-import { Registry } from '@genkit-ai/core/registry';
+import type { Registry } from '@genkit-ai/core/registry';
 import { toJsonSchema } from '@genkit-ai/core/schema';
-import { performance } from 'node:perf_hooks';
 import { DocumentDataSchema } from './document.js';
 import {
   augmentWithContext,

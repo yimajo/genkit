@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import {
+import * as assert from 'assert';
+import { describe, it } from 'node:test';
+import type {
   Message,
   MessageCreateParamsBase,
 } from '@anthropic-ai/sdk/resources/messages.mjs';
-import * as assert from 'assert';
-import { GenerateRequest, GenerateResponseData } from 'genkit';
-import { describe, it } from 'node:test';
+import type { GenerateRequest, GenerateResponseData } from 'genkit';
 import {
-  AnthropicConfigSchema,
+  type AnthropicConfigSchema,
   fromAnthropicResponse,
   toAnthropicRequest,
 } from '../../src/modelgarden/anthropic';

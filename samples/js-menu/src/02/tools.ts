@@ -16,7 +16,7 @@
 
 import { z } from 'genkit';
 import { ai } from '../genkit.js';
-import { MenuItem, MenuItemSchema } from '../types';
+import { type MenuItem, MenuItemSchema } from '../types';
 
 const menuData: Array<MenuItem> = require('../../data/menu.json');
 

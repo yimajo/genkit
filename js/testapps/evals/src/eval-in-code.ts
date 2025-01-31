@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-import { genkitEvalRef, GenkitMetric } from '@genkit-ai/evaluator';
+import { GenkitMetric, genkitEvalRef } from '@genkit-ai/evaluator';
 import { z } from 'genkit';
-import { Dataset, EvalResponse, EvalResponseSchema } from 'genkit/evaluator';
+import {
+  type Dataset,
+  type EvalResponse,
+  EvalResponseSchema,
+} from 'genkit/evaluator';
 import { ai } from './genkit';
 
 const DOG_DATASET: Dataset = require('../data/dogfacts.json');

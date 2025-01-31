@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import * as clc from 'colorette';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as clc from 'colorette';
 import * as process from 'process';
 import { z } from 'zod';
 import { TraceDataSchema } from '../types/trace';
@@ -44,7 +44,10 @@ const EvaluationExtractorSchema = z.record(
   z.union([
     z.string(), // specify the displayName (default to output)
     StepSelectorSchema, //, {inputOf: 'my-step-name'}
-    z.function().args(TraceDataSchema).returns(z.any()), // custom trace extractor
+    z
+      .function()
+      .args(TraceDataSchema)
+      .returns(z.any()), // custom trace extractor
   ])
 );
 export type EvaluationExtractor = z.infer<typeof EvaluationExtractorSchema>;

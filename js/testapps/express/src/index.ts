@@ -15,17 +15,17 @@
  */
 
 import {
-  AuthPolicy,
-  RequestWithAuth,
+  type AuthPolicy,
+  type RequestWithAuth,
   expressHandler,
 } from '@genkit-ai/express';
 import { gemini15Flash, googleAI } from '@genkit-ai/googleai';
 import { vertexAI } from '@genkit-ai/vertexai';
 import express, {
-  ErrorRequestHandler,
-  Handler,
-  Request,
-  Response,
+  type ErrorRequestHandler,
+  type Handler,
+  type Request,
+  type Response,
 } from 'express';
 import { genkit, z } from 'genkit';
 import { logger } from 'genkit/logging';

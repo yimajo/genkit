@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { Registry } from '@genkit-ai/core/registry';
 import * as assert from 'assert';
 import { beforeEach, describe, it } from 'node:test';
+import { Registry } from '@genkit-ai/core/registry';
 import {
-  GenerateAction,
+  type GenerateAction,
   defineGenerateAction,
 } from '../../src/generate/action.js';
-import { GenerateResponseChunkData } from '../../src/model.js';
+import type { GenerateResponseChunkData } from '../../src/model.js';
 import { defineTool } from '../../src/tool.js';
 import {
-  ProgrammableModel,
+  type ProgrammableModel,
   defineEchoModel,
   defineProgrammableModel,
 } from '../helpers.js';

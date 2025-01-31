@@ -16,7 +16,7 @@
 
 import * as assert from 'assert';
 import { beforeEach, describe, it } from 'node:test';
-import { Genkit, genkit } from '../src/genkit';
+import { type Genkit, genkit } from '../src/genkit';
 import { defineEchoModel } from './helpers';
 
 describe('formats', () => {

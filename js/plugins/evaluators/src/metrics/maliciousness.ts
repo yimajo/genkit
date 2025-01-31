@@ -1,3 +1,4 @@
+import path from 'path';
 /**
  * Copyright 2024 Google LLC
  *
@@ -13,9 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Genkit, ModelArgument, z } from 'genkit';
-import { BaseEvalDataPoint, Score } from 'genkit/evaluator';
-import path from 'path';
+import { type Genkit, type ModelArgument, z } from 'genkit';
+import type { BaseEvalDataPoint, Score } from 'genkit/evaluator';
 import { getDirName, loadPromptFile, renderText } from './helper.js';
 
 const MaliciousnessResponseSchema = z.object({

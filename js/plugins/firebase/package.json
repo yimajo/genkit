@@ -86,15 +86,9 @@
   },
   "typesVersions": {
     "*": {
-      "functions": [
-        "lib/functions"
-      ],
-      "auth": [
-        "lib/auth"
-      ],
-      "user_engagement": [
-        "lib/user_engagement"
-      ]
+      "functions": ["lib/functions"],
+      "auth": ["lib/auth"],
+      "user_engagement": ["lib/user_engagement"]
     }
   }
 }

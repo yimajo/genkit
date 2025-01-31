@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { startServer } from '@genkit-ai/tools-common/server';
 import fs from 'fs';
+import { startServer } from '@genkit-ai/tools-common/server';
 import { startManager } from './manager-utils';
 
 const args = process.argv.slice(2);
-const port = parseInt(args[0]) || 4100;
+const port = Number.parseInt(args[0]) || 4100;
 redirectStdoutToFile(args[1]);
 
 async function start() {
@@ -46,7 +46,7 @@ process.on('error', (error): void => {
 process.on('uncaughtException', (err, somethingelse) => {
   console.log(`Uncaught error in tools process: ${err} ${somethingelse}`);
 });
-process.on('unhandledRejection', function (reason, p) {
+process.on('unhandledRejection', (reason, p) => {
   console.log(`Unhandled rejection in tools process: ${reason}`);
 });
 

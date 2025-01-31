@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { BigQuery } from '@google-cloud/bigquery';
 import * as assert from 'assert';
-import { Document } from 'genkit/retriever';
 import { describe, it } from 'node:test';
+import type { BigQuery } from '@google-cloud/bigquery';
+import { Document } from 'genkit/retriever';
 import { getBigQueryDocumentRetriever } from '../../src/vectorsearch';
 
 class MockBigQuery {

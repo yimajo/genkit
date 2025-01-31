@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { z } from '@genkit-ai/core';
-import { toJsonSchema } from '@genkit-ai/core/schema';
 import * as assert from 'assert';
 import { describe, it } from 'node:test';
+import { z } from '@genkit-ai/core';
+import { toJsonSchema } from '@genkit-ai/core/schema';
 import {
   GenerateResponse,
   GenerationBlockedError,
   GenerationResponseError,
 } from '../../src/generate.js';
 import { Message } from '../../src/message.js';
-import { GenerateRequest, GenerateResponseData } from '../../src/model.js';
+import type { GenerateRequest, GenerateResponseData } from '../../src/model.js';
 
 describe('GenerateResponse', () => {
   describe('#toJSON()', () => {

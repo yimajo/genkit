@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { TraceData, TraceDataSchema } from '@genkit-ai/tools-common';
-import { Mutex } from 'async-mutex';
 import fs from 'fs';
 import path from 'path';
-import { TraceQuery, TraceQueryResponse, TraceStore } from './types';
+import { type TraceData, TraceDataSchema } from '@genkit-ai/tools-common';
+import { Mutex } from 'async-mutex';
+import type { TraceQuery, TraceQueryResponse, TraceStore } from './types';
 
 /**
  * Implementation of trace store that persists traces on local disk.
@@ -100,7 +100,7 @@ export class LocalFileTraceStore implements TraceStore {
       );
     });
     const startFrom = query?.continuationToken
-      ? parseInt(query?.continuationToken)
+      ? Number.parseInt(query?.continuationToken)
       : 0;
     const stopAt = startFrom + (query?.limit || 10);
     const traces = files.slice(startFrom, stopAt).map((id) => {

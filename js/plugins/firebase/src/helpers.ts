@@ -15,7 +15,7 @@
  */
 
 import { getApps, initializeApp } from 'firebase-admin/app';
-import { StreamingCallback } from 'genkit';
+import type { StreamingCallback } from 'genkit';
 import { GoogleAuth } from 'google-auth-library';
 
 // cached `GoogleAuth` client.

@@ -15,47 +15,47 @@
  */
 
 import {
-  FileDataPart,
+  type FileDataPart,
+  type FunctionCallPart,
   FunctionCallingMode,
-  FunctionCallPart,
-  FunctionDeclaration,
-  FunctionResponsePart,
-  GenerateContentCandidate as GeminiCandidate,
-  Content as GeminiMessage,
-  Part as GeminiPart,
-  GenerateContentResponse,
-  GenerationConfig,
-  GenerativeModel,
+  type FunctionDeclaration,
+  type FunctionResponsePart,
+  type GenerateContentCandidate as GeminiCandidate,
+  type Content as GeminiMessage,
+  type Part as GeminiPart,
+  type GenerateContentResponse,
+  type GenerationConfig,
+  type GenerativeModel,
   GoogleGenerativeAI,
-  InlineDataPart,
-  RequestOptions,
+  type InlineDataPart,
+  type RequestOptions,
   SchemaType,
-  StartChatParams,
-  Tool,
-  ToolConfig,
+  type StartChatParams,
+  type Tool,
+  type ToolConfig,
 } from '@google/generative-ai';
 import {
-  Genkit,
   GENKIT_CLIENT_HEADER,
+  type Genkit,
   GenkitError,
-  JSONSchema,
+  type JSONSchema,
   z,
 } from 'genkit';
 import {
-  CandidateData,
+  type CandidateData,
   GenerationCommonConfigSchema,
+  type MediaPart,
+  type MessageData,
+  type ModelAction,
+  type ModelInfo,
+  type ModelMiddleware,
+  type ModelReference,
+  type Part,
+  type ToolDefinitionSchema,
+  type ToolRequestPart,
+  type ToolResponsePart,
   getBasicUsageStats,
-  MediaPart,
-  MessageData,
-  ModelAction,
-  ModelInfo,
-  ModelMiddleware,
   modelRef,
-  ModelReference,
-  Part,
-  ToolDefinitionSchema,
-  ToolRequestPart,
-  ToolResponsePart,
 } from 'genkit/model';
 import {
   downloadRequestMedia,
@@ -539,7 +539,7 @@ function fromGeminiFinishReason(
 
 export function fromGeminiCandidate(
   candidate: GeminiCandidate,
-  jsonMode: boolean = false
+  jsonMode = false
 ): CandidateData {
   return {
     index: candidate.index || 0, // reasonable default?
@@ -736,7 +736,7 @@ export function defineGoogleAIModel(
         return fromGeminiCandidate(candidate, jsonMode);
       };
 
-      let chatRequest: StartChatParams = {
+      const chatRequest: StartChatParams = {
         systemInstruction,
         generationConfig,
         tools: tools.length ? tools : undefined,

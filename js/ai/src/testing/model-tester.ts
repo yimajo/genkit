@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { z } from '@genkit-ai/core';
-import { Registry } from '@genkit-ai/core/registry';
-import { runInNewSpan } from '@genkit-ai/core/tracing';
 import * as assert from 'assert';
+import { z } from '@genkit-ai/core';
+import type { Registry } from '@genkit-ai/core/registry';
+import { runInNewSpan } from '@genkit-ai/core/tracing';
 import { generate } from '../generate';
-import { ModelAction } from '../model';
+import type { ModelAction } from '../model';
 import { defineTool } from '../tool';
 
 const tests: Record<string, TestCase> = {

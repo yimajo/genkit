@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { z } from '@genkit-ai/core';
-import { Registry } from '@genkit-ai/core/registry';
 import * as assert from 'assert';
 import { afterEach, describe, it } from 'node:test';
+import { z } from '@genkit-ai/core';
+import { Registry } from '@genkit-ai/core/registry';
 import { defineInterrupt, defineTool } from '../src/tool.js';
 
 describe('defineInterrupt', () => {

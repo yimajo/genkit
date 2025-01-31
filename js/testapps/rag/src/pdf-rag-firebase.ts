@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import path from 'path';
 import { defineFirestoreRetriever } from '@genkit-ai/firebase';
 import { gemini15Flash } from '@genkit-ai/googleai';
 import { textEmbedding004 } from '@genkit-ai/vertexai';
@@ -23,12 +24,11 @@ import { getFirestore } from 'firebase-admin/firestore';
 import { readFile } from 'fs/promises';
 import { z } from 'genkit';
 import { chunk } from 'llm-chunk';
-import path from 'path';
 import pdf from 'pdf-parse';
 import { ai } from './genkit';
 
 const app = initializeApp();
-let firestore = getFirestore(app);
+const firestore = getFirestore(app);
 
 // There's a race condition in initializing the Firestore singleton.
 // To avoid that, explicitly create an instance using the service account

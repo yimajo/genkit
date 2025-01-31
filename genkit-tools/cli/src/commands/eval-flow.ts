@@ -15,13 +15,13 @@
  */
 
 import {
-  Action,
-  Dataset,
-  DatasetMetadata,
+  type Action,
+  type Dataset,
+  type DatasetMetadata,
   DatasetSchema,
 } from '@genkit-ai/tools-common';
 import {
-  EvalExporter,
+  type EvalExporter,
   getAllEvaluatorActions,
   getDatasetStore,
   getExporterForString,

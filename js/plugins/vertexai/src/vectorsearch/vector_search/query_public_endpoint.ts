@@ -15,7 +15,7 @@
  */
 
 import { logger } from 'genkit/logging';
-import { FindNeighborsResponse } from './types';
+import type { FindNeighborsResponse } from './types';
 
 interface QueryPublicEndpointParams {
   featureVector: number[];

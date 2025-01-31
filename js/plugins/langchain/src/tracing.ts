@@ -16,7 +16,7 @@
 
 import { BaseTracer, type Run } from '@langchain/core/tracers/base';
 import {
-  Span as ApiSpan,
+  type Span as ApiSpan,
   SpanStatusCode,
   context,
   trace,

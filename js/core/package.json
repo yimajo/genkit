@@ -1,12 +1,7 @@
 {
   "name": "@genkit-ai/core",
   "description": "Genkit AI framework core libraries.",
-  "keywords": [
-    "genkit",
-    "ai",
-    "genai",
-    "generative-ai"
-  ],
+  "keywords": ["genkit", "ai", "genai", "generative-ai"],
   "version": "1.0.0-rc.12",
   "type": "commonjs",
   "scripts": {
@@ -96,27 +91,13 @@
   },
   "typesVersions": {
     "*": {
-      "metrics": [
-        "lib/metrics"
-      ],
-      "registry": [
-        "lib/registry"
-      ],
-      "tracing": [
-        "lib/tracing"
-      ],
-      "logging": [
-        "lib/logging"
-      ],
-      "config": [
-        "lib/config"
-      ],
-      "runtime": [
-        "lib/runtime"
-      ],
-      "schema": [
-        "lib/schema"
-      ]
+      "metrics": ["lib/metrics"],
+      "registry": ["lib/registry"],
+      "tracing": ["lib/tracing"],
+      "logging": ["lib/logging"],
+      "config": ["lib/config"],
+      "runtime": ["lib/runtime"],
+      "schema": ["lib/schema"]
     }
   }
 }

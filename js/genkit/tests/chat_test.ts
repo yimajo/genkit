@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { MessageData } from '@genkit-ai/ai';
-import { z } from '@genkit-ai/core';
 import * as assert from 'assert';
 import { beforeEach, describe, it } from 'node:test';
-import { GenkitBeta, genkit } from '../src/beta';
+import type { MessageData } from '@genkit-ai/ai';
+import { z } from '@genkit-ai/core';
+import { type GenkitBeta, genkit } from '../src/beta';
 import {
-  ProgrammableModel,
+  type ProgrammableModel,
   defineEchoModel,
   defineProgrammableModel,
 } from './helpers';

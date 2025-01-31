@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import similarity from 'compute-cosine-similarity';
 import * as fs from 'fs';
-import { Embedding, Genkit, z } from 'genkit';
-import { EmbedderArgument } from 'genkit/embedder';
-import { GenkitPlugin, genkitPlugin } from 'genkit/plugin';
+import similarity from 'compute-cosine-similarity';
+import { type Embedding, type Genkit, z } from 'genkit';
+import type { EmbedderArgument } from 'genkit/embedder';
+import { type GenkitPlugin, genkitPlugin } from 'genkit/plugin';
 import {
   CommonRetrieverOptionsSchema,
   Document,
-  DocumentData,
+  type DocumentData,
   indexerRef,
   retrieverRef,
 } from 'genkit/retriever';

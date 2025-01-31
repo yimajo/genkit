@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import { Genkit } from 'genkit';
+import type { Genkit } from 'genkit';
 import { logger } from 'genkit/logging';
 import {
-  GenerateRequest,
-  GenerateResponseData,
+  type GenerateRequest,
+  type GenerateResponseData,
   GenerationCommonConfigSchema,
+  type MessageData,
   getBasicUsageStats,
-  MessageData,
 } from 'genkit/model';
-import { GenkitPlugin, genkitPlugin } from 'genkit/plugin';
+import { type GenkitPlugin, genkitPlugin } from 'genkit/plugin';
 import { defineOllamaEmbedder } from './embeddings.js';
-import {
+import type {
   ApiType,
   ModelDefinition,
+  OllamaPluginParams,
   RequestHeaders,
-  type OllamaPluginParams,
 } from './types.js';
 
-export { type OllamaPluginParams };
+export type { OllamaPluginParams };
 
 export function ollama(params: OllamaPluginParams): GenkitPlugin {
   return genkitPlugin('ollama', async (ai: Genkit) => {

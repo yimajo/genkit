@@ -15,10 +15,10 @@
  */
 
 import {
-  BaseToolPluginAction,
-  SpecialAction,
-  SupportedFlagValues,
-  ToolPlugin,
+  type BaseToolPluginAction,
+  type SpecialAction,
+  type SupportedFlagValues,
+  type ToolPlugin,
   findToolsConfig,
 } from '@genkit-ai/tools-common/plugin';
 import { logger } from '@genkit-ai/tools-common/utils';

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Action } from '../types/action';
-import { EvalInput, EvalMetric, EvalResult } from '../types/eval';
-import { EvalResponse, TestCase } from '../types/evaluators';
+import type { Action } from '../types/action';
+import type { EvalInput, EvalMetric, EvalResult } from '../types/eval';
+import type { EvalResponse, TestCase } from '../types/evaluators';
 import {
   EVALUATOR_METADATA_KEY_DEFINITION,
   EVALUATOR_METADATA_KEY_DISPLAY_NAME,

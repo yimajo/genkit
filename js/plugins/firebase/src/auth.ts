@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { RequestWithAuth } from '@genkit-ai/express';
-import { Response } from 'express';
-import { DecodedIdToken, getAuth } from 'firebase-admin/auth';
-import { z } from 'genkit';
-import { FunctionFlowAuth } from './functions.js';
+import type { RequestWithAuth } from '@genkit-ai/express';
+import type { Response } from 'express';
+import { type DecodedIdToken, getAuth } from 'firebase-admin/auth';
+import type { z } from 'genkit';
+import type { FunctionFlowAuth } from './functions.js';
 import { initializeAppIfNecessary } from './helpers.js';
 
 export function firebaseAuth<I extends z.ZodTypeAny>(

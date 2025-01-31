@@ -15,8 +15,8 @@
  */
 
 import * as fs from 'fs';
-import { JSONSchema7 } from 'json-schema';
 import * as path from 'path';
+import type { JSONSchema7 } from 'json-schema';
 import * as z from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 

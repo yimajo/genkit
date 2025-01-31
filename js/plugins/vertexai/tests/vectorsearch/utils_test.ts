@@ -15,8 +15,8 @@
  */
 
 import assert from 'assert';
-import { google } from 'googleapis';
 import { describe, it } from 'node:test';
+import { google } from 'googleapis';
 import {
   getAccessToken,
   getProjectNumber,

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { ModelMiddleware, modelRef } from '@genkit-ai/ai/model';
 import * as assert from 'assert';
 import { beforeEach, describe, it } from 'node:test';
+import { type ModelMiddleware, modelRef } from '@genkit-ai/ai/model';
 import { stripUndefinedProps } from '../../core/src';
-import { GenkitBeta, genkit } from '../src/beta';
-import { PromptAction, z } from '../src/index';
+import { type GenkitBeta, genkit } from '../src/beta';
+import { type PromptAction, z } from '../src/index';
 import {
-  ProgrammableModel,
+  type ProgrammableModel,
   defineEchoModel,
   defineProgrammableModel,
   defineStaticResponseModel,

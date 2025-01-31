@@ -20,10 +20,10 @@
  * @module /
  */
 
-import { Genkit } from 'genkit';
-import { GenkitPlugin, genkitPlugin } from 'genkit/plugin';
+import type { Genkit } from 'genkit';
+import { type GenkitPlugin, genkitPlugin } from 'genkit/plugin';
 import { getDerivedParams } from './common/index.js';
-import { PluginOptions } from './common/types.js';
+import type { PluginOptions } from './common/types.js';
 import {
   SUPPORTED_EMBEDDER_MODELS,
   defineVertexAIEmbedder,
@@ -35,6 +35,7 @@ import {
   textMultilingualEmbedding002,
 } from './embedder.js';
 import {
+  type GeminiConfig,
   SUPPORTED_GEMINI_MODELS,
   defineGeminiKnownModel,
   defineGeminiModel,
@@ -43,7 +44,6 @@ import {
   gemini15Flash,
   gemini15Pro,
   gemini20FlashExp,
-  type GeminiConfig,
 } from './gemini.js';
 import {
   SUPPORTED_IMAGEN_MODELS,
@@ -52,7 +52,7 @@ import {
   imagen3Fast,
   imagenModel,
 } from './imagen.js';
-export { type PluginOptions } from './common/types.js';
+export type { PluginOptions } from './common/types.js';
 export {
   gemini,
   gemini10Pro,

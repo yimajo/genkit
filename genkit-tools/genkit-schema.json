@@ -14,9 +14,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "additionalProperties": false
     },
     "Link": {
@@ -51,11 +49,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "traceId",
-        "spanId",
-        "traceFlags"
-      ],
+      "required": ["traceId", "spanId", "traceFlags"],
       "additionalProperties": false
     },
     "SpanData": {
@@ -102,9 +96,7 @@
               "type": "boolean"
             }
           },
-          "required": [
-            "value"
-          ],
+          "required": ["value"],
           "additionalProperties": false
         },
         "status": {
@@ -146,10 +138,7 @@
         },
         "state": {
           "type": "string",
-          "enum": [
-            "success",
-            "error"
-          ]
+          "enum": ["success", "error"]
         },
         "input": {},
         "output": {},
@@ -163,9 +152,7 @@
           }
         }
       },
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "additionalProperties": false
     },
     "SpanStatus": {
@@ -178,9 +165,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "code"
-      ],
+      "required": ["code"],
       "additionalProperties": false
     },
     "TimeEvent": {
@@ -200,17 +185,11 @@
               "type": "string"
             }
           },
-          "required": [
-            "attributes",
-            "description"
-          ],
+          "required": ["attributes", "description"],
           "additionalProperties": false
         }
       },
-      "required": [
-        "time",
-        "annotation"
-      ],
+      "required": ["time", "annotation"],
       "additionalProperties": false
     },
     "TraceData": {
@@ -235,10 +214,7 @@
           }
         }
       },
-      "required": [
-        "traceId",
-        "spans"
-      ],
+      "required": ["traceId", "spans"],
       "additionalProperties": false
     },
     "DocumentData": {
@@ -255,9 +231,7 @@
           "additionalProperties": {}
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": false
     },
     "CandidateError": {
@@ -268,20 +242,13 @@
         },
         "code": {
           "type": "string",
-          "enum": [
-            "blocked",
-            "other",
-            "unknown"
-          ]
+          "enum": ["blocked", "other", "unknown"]
         },
         "message": {
           "type": "string"
         }
       },
-      "required": [
-        "index",
-        "code"
-      ],
+      "required": ["index", "code"],
       "additionalProperties": false
     },
     "Candidate": {
@@ -304,11 +271,7 @@
         },
         "custom": {}
       },
-      "required": [
-        "index",
-        "message",
-        "finishReason"
-      ],
+      "required": ["index", "message", "finishReason"],
       "additionalProperties": false
     },
     "DataPart": {
@@ -336,14 +299,7 @@
     },
     "FinishReason": {
       "type": "string",
-      "enum": [
-        "stop",
-        "length",
-        "blocked",
-        "interrupted",
-        "other",
-        "unknown"
-      ]
+      "enum": ["stop", "length", "blocked", "interrupted", "other", "unknown"]
     },
     "GenerateActionOptions": {
       "type": "object",
@@ -370,9 +326,7 @@
                           "not": {}
                         }
                       },
-                      "required": [
-                        "text"
-                      ],
+                      "required": ["text"],
                       "additionalProperties": false
                     },
                     {
@@ -391,15 +345,11 @@
                               "type": "string"
                             }
                           },
-                          "required": [
-                            "url"
-                          ],
+                          "required": ["url"],
                           "additionalProperties": false
                         }
                       },
-                      "required": [
-                        "media"
-                      ],
+                      "required": ["media"],
                       "additionalProperties": false
                     }
                   ]
@@ -410,9 +360,7 @@
                 "additionalProperties": {}
               }
             },
-            "required": [
-              "content"
-            ],
+            "required": ["content"],
             "additionalProperties": false
           }
         },
@@ -437,11 +385,7 @@
         },
         "toolChoice": {
           "type": "string",
-          "enum": [
-            "auto",
-            "required",
-            "none"
-          ]
+          "enum": ["auto", "required", "none"]
         },
         "config": {},
         "output": {
@@ -454,10 +398,7 @@
               "type": "string"
             },
             "instructions": {
-              "type": [
-                "boolean",
-                "string"
-              ]
+              "type": ["boolean", "string"]
             },
             "jsonSchema": {}
           },
@@ -470,10 +411,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "model",
-        "messages"
-      ],
+      "required": ["model", "messages"],
       "additionalProperties": false
     },
     "GenerateRequest": {
@@ -494,22 +432,14 @@
         },
         "toolChoice": {
           "type": "string",
-          "enum": [
-            "auto",
-            "required",
-            "none"
-          ]
+          "enum": ["auto", "required", "none"]
         },
         "output": {
           "type": "object",
           "properties": {
             "format": {
               "type": "string",
-              "enum": [
-                "json",
-                "text",
-                "media"
-              ]
+              "enum": ["json", "text", "media"]
             },
             "schema": {
               "type": "object",
@@ -528,9 +458,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "messages"
-      ],
+      "required": ["messages"],
       "additionalProperties": false
     },
     "GenerateResponseChunk": {
@@ -553,9 +481,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": false
     },
     "GenerateResponse": {
@@ -677,9 +603,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "url"
-          ],
+          "required": ["url"],
           "additionalProperties": false
         },
         "toolRequest": {
@@ -693,9 +617,7 @@
           "$ref": "#/$defs/DataPart/properties/metadata"
         }
       },
-      "required": [
-        "media"
-      ],
+      "required": ["media"],
       "additionalProperties": false
     },
     "Message": {
@@ -715,10 +637,7 @@
           "additionalProperties": {}
         }
       },
-      "required": [
-        "role",
-        "content"
-      ],
+      "required": ["role", "content"],
       "additionalProperties": false
     },
     "ModelInfo": {
@@ -797,9 +716,7 @@
           }
         }
       },
-      "required": [
-        "messages"
-      ],
+      "required": ["messages"],
       "additionalProperties": false
     },
     "ModelResponseChunk": {
@@ -821,9 +738,7 @@
           "$ref": "#/$defs/GenerateResponseChunk/properties/aggregated"
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": false
     },
     "ModelResponse": {
@@ -851,9 +766,7 @@
           "$ref": "#/$defs/GenerateResponse/properties/request"
         }
       },
-      "required": [
-        "finishReason"
-      ],
+      "required": ["finishReason"],
       "additionalProperties": false
     },
     "Part": {
@@ -877,12 +790,7 @@
     },
     "Role": {
       "type": "string",
-      "enum": [
-        "system",
-        "user",
-        "model",
-        "tool"
-      ]
+      "enum": ["system", "user", "model", "tool"]
     },
     "TextPart": {
       "type": "object",
@@ -906,9 +814,7 @@
           "$ref": "#/$defs/DataPart/properties/metadata"
         }
       },
-      "required": [
-        "text"
-      ],
+      "required": ["text"],
       "additionalProperties": false
     },
     "ToolDefinition": {
@@ -936,11 +842,7 @@
           "description": "additional metadata for this tool definition"
         }
       },
-      "required": [
-        "name",
-        "description",
-        "inputSchema"
-      ],
+      "required": ["name", "description", "inputSchema"],
       "additionalProperties": false
     },
     "ToolRequestPart": {
@@ -963,9 +865,7 @@
             },
             "input": {}
           },
-          "required": [
-            "name"
-          ],
+          "required": ["name"],
           "additionalProperties": false
         },
         "toolResponse": {
@@ -978,9 +878,7 @@
           "$ref": "#/$defs/DataPart/properties/metadata"
         }
       },
-      "required": [
-        "toolRequest"
-      ],
+      "required": ["toolRequest"],
       "additionalProperties": false
     },
     "ToolResponsePart": {
@@ -1006,9 +904,7 @@
             },
             "output": {}
           },
-          "required": [
-            "name"
-          ],
+          "required": ["name"],
           "additionalProperties": false
         },
         "data": {
@@ -1018,9 +914,7 @@
           "$ref": "#/$defs/DataPart/properties/metadata"
         }
       },
-      "required": [
-        "toolResponse"
-      ],
+      "required": ["toolResponse"],
       "additionalProperties": false
     }
   }

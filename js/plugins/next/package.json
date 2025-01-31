@@ -67,9 +67,7 @@
   },
   "typesVersions": {
     "*": {
-      "client": [
-        "lib/client"
-      ]
+      "client": ["lib/client"]
     }
   }
 }

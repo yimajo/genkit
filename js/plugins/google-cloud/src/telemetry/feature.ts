@@ -16,14 +16,14 @@
 
 import { ValueType } from '@opentelemetry/api';
 import { hrTimeDuration, hrTimeToMilliseconds } from '@opentelemetry/core';
-import { ReadableSpan } from '@opentelemetry/sdk-trace-base';
+import type { ReadableSpan } from '@opentelemetry/sdk-trace-base';
 import { GENKIT_VERSION, GenkitError } from 'genkit';
 import { logger } from 'genkit/logging';
-import { PathMetadata, toDisplayPath } from 'genkit/tracing';
+import { type PathMetadata, toDisplayPath } from 'genkit/tracing';
 import {
   MetricCounter,
   MetricHistogram,
-  Telemetry,
+  type Telemetry,
   internalMetricNamespaceWrap,
 } from '../metrics.js';
 import {

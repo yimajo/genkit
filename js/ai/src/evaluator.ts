@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { Action, defineAction, z } from '@genkit-ai/core';
-import { logger } from '@genkit-ai/core/logging';
-import { Registry } from '@genkit-ai/core/registry';
-import { SPAN_TYPE_ATTR, runInNewSpan } from '@genkit-ai/core/tracing';
 import { randomUUID } from 'crypto';
+import { type Action, defineAction, z } from '@genkit-ai/core';
+import { logger } from '@genkit-ai/core/logging';
+import type { Registry } from '@genkit-ai/core/registry';
+import { SPAN_TYPE_ATTR, runInNewSpan } from '@genkit-ai/core/tracing';
 
 export const ATTR_PREFIX = 'genkit';
 export const SPAN_STATE_ATTR = ATTR_PREFIX + ':state';
@@ -167,7 +167,7 @@ export function defineEvaluator<
       metadata: metadata,
     },
     async (i) => {
-      let evalResponses: EvalResponses = [];
+      const evalResponses: EvalResponses = [];
       for (let index = 0; index < i.dataset.length; index++) {
         const datapoint: BaseEvalDataPoint = {
           ...i.dataset[index],

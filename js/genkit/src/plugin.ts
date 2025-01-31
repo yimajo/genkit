@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Genkit } from './genkit.js';
+import type { Genkit } from './genkit.js';
 
 export interface PluginProvider {
   name: string;

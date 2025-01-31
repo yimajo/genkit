@@ -96,18 +96,10 @@
   },
   "typesVersions": {
     "*": {
-      "rerankers": [
-        "./lib/rerankers/index"
-      ],
-      "evaluation": [
-        "./lib/evaluation/index"
-      ],
-      "modelgarden": [
-        "./lib/modelgarden/index"
-      ],
-      "vectorsearch": [
-        "./lib/vectorsearch/index"
-      ]
+      "rerankers": ["./lib/rerankers/index"],
+      "evaluation": ["./lib/evaluation/index"],
+      "modelgarden": ["./lib/modelgarden/index"],
+      "vectorsearch": ["./lib/vectorsearch/index"]
     }
   }
 }

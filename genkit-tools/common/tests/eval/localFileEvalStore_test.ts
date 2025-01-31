@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import fs from 'fs';
 import {
   afterEach,
   beforeEach,
@@ -22,9 +23,12 @@ import {
   it,
   jest,
 } from '@jest/globals';
-import fs from 'fs';
 import { LocalFileEvalStore } from '../../src/eval/localFileEvalStore';
-import { EvalResult, EvalRunSchema, EvalStore } from '../../src/types/eval';
+import {
+  type EvalResult,
+  EvalRunSchema,
+  type EvalStore,
+} from '../../src/types/eval';
 
 const EVAL_RESULTS: EvalResult[] = [
   {

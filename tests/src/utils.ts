@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { ChildProcess, execSync, spawn } from 'child_process';
+import { type ChildProcess, execSync, spawn } from 'child_process';
 import fs from 'fs';
-import { DiffStringOptions, diffString } from 'json-diff';
 import os from 'os';
 import path from 'path';
-import puppeteer, { Page } from 'puppeteer';
+import { type DiffStringOptions, diffString } from 'json-diff';
+import puppeteer, { type Page } from 'puppeteer';
 import { PuppeteerScreenRecorder } from 'puppeteer-screen-recorder';
 import terminate from 'terminate';
 

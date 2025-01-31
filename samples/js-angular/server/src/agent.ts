@@ -15,12 +15,12 @@
  */
 
 import {
-  GenerateResponse,
-  Genkit,
-  MessageData,
-  ModelArgument,
+  type GenerateResponse,
+  type Genkit,
+  type MessageData,
+  type ModelArgument,
   PartSchema,
-  ToolArgument,
+  type ToolArgument,
   run,
   z,
 } from 'genkit';

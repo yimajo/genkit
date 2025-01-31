@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { Dotprompt } from 'dotprompt';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import * as z from 'zod';
-import { Action, runOutsideActionRuntimeContext } from './action.js';
+import { Dotprompt } from 'dotprompt';
+import type * as z from 'zod';
+import { type Action, runOutsideActionRuntimeContext } from './action.js';
 import { GenkitError } from './error.js';
 import { logger } from './logging.js';
-import { PluginProvider } from './plugin.js';
-import { JSONSchema, toJsonSchema } from './schema.js';
+import type { PluginProvider } from './plugin.js';
+import { type JSONSchema, toJsonSchema } from './schema.js';
 
 export type AsyncProvider<T> = () => Promise<T>;
 

@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-import { Genkit, GENKIT_CLIENT_HEADER, ModelReference, z } from 'genkit';
-import { GenerateRequest, ModelAction, modelRef } from 'genkit/model';
-import { GoogleAuth } from 'google-auth-library';
+import {
+  GENKIT_CLIENT_HEADER,
+  type Genkit,
+  type ModelReference,
+  z,
+} from 'genkit';
+import { type GenerateRequest, type ModelAction, modelRef } from 'genkit/model';
+import type { GoogleAuth } from 'google-auth-library';
 import OpenAI from 'openai';
 import {
-  openaiCompatibleModel,
   OpenAIConfigSchema,
+  openaiCompatibleModel,
 } from './openai_compatibility.js';
 
 export const ModelGardenModelConfigSchema = OpenAIConfigSchema.extend({

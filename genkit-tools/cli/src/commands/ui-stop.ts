@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import path from 'path';
 import {
   findServersDir,
   logger,
@@ -23,8 +24,7 @@ import axios from 'axios';
 import * as clc from 'colorette';
 import { Command } from 'commander';
 import fs from 'fs/promises';
-import path from 'path';
-import { DevToolsInfo, isValidDevToolsInfo } from './ui-start';
+import { type DevToolsInfo, isValidDevToolsInfo } from './ui-start';
 
 /** Command to stop the Genkit Developer UI. */
 export const uiStop = new Command('ui:stop')

@@ -53,7 +53,7 @@ async function testReflectionApi() {
   const t = yaml.parse(readFileSync('reflection_api_tests.yaml', 'utf8'));
   for (const test of t.tests) {
     console.log('path', test.path);
-    let fetchopts = {
+    const fetchopts = {
       method: 'GET',
     } as RequestInit;
     if (test.hasOwnProperty('post')) {

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import Ajv, { ErrorObject, JSONSchemaType } from 'ajv';
+import Ajv, { type ErrorObject, type JSONSchemaType } from 'ajv';
 import addFormats from 'ajv-formats';
 import { getDatasetStore } from '.';
-import { RuntimeManager } from '../manager';
+import type { RuntimeManager } from '../manager';
 import {
-  Action,
-  ErrorDetail,
+  type Action,
+  type ErrorDetail,
   InferenceDatasetSchema,
-  ValidateDataRequest,
-  ValidateDataResponse,
+  type ValidateDataRequest,
+  type ValidateDataResponse,
 } from '../types';
 
 // Setup for AJV

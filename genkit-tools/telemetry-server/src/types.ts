@@ -15,7 +15,7 @@
  */
 
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
-import { TraceData } from '@genkit-ai/tools-common';
+import type { TraceData } from '@genkit-ai/tools-common';
 import * as z from 'zod';
 
 extendZodWithOpenApi(z);

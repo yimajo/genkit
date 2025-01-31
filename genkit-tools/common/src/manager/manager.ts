@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import axios, { AxiosError } from 'axios';
-import chokidar from 'chokidar';
 import EventEmitter from 'events';
-import fs from 'fs/promises';
 import path from 'path';
+import axios, { type AxiosError } from 'axios';
+import chokidar from 'chokidar';
+import fs from 'fs/promises';
 import {
-  Action,
-  RunActionResponse,
+  type Action,
+  type RunActionResponse,
   RunActionResponseSchema,
 } from '../types/action';
 import * as apis from '../types/apis';
-import { GenkitErrorData } from '../types/error';
-import { TraceData } from '../types/trace';
+import type { GenkitErrorData } from '../types/error';
+import type { TraceData } from '../types/trace';
 import { logger } from '../utils/logger';
 import {
   checkServerHealth,
@@ -37,8 +37,8 @@ import {
 import {
   GenkitToolsError,
   RuntimeEvent,
-  RuntimeInfo,
-  StreamingCallback,
+  type RuntimeInfo,
+  type StreamingCallback,
 } from './types';
 
 const STREAM_DELIMITER = '\n';
@@ -59,7 +59,7 @@ export class RuntimeManager {
 
   private constructor(
     readonly telemetryServerUrl?: string,
-    private manageHealth: boolean = true
+    private manageHealth = true
   ) {}
 
   /**
