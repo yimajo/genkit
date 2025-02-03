@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: Apache-2.0
 
 
+
 from genkit.core.action import Action
-from typing import Dict
 
 
 class Registry:
-    actions: Dict[str, Dict[str, Action]] = {}
+    actions: dict[str, dict[str, Action]] = {}
 
     def register_action(self, type: str, name: str, action: Action):
         if type not in self.actions:

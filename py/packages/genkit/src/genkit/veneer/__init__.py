@@ -7,15 +7,15 @@ import datetime
 import json
 import os
 import threading
-
+from collections.abc import Callable
 from http.server import HTTPServer
-from typing import Union, List, Dict, Optional, Callable, Any
+from typing import Any, Dict, List, Optional, Union
 
 from genkit.ai.model import ModelFn
 from genkit.ai.prompt import PromptFn
+from genkit.core.action import Action
 from genkit.core.reflection import MakeReflectionServer
 from genkit.core.registry import Registry
-from genkit.core.action import Action
 from genkit.core.types import GenerateRequest, GenerateResponse, Message
 
 Plugin = Callable[['Genkit'], None]
@@ -26,8 +26,8 @@ class Genkit:
 
     def __init__(
         self,
-        plugins: Optional[List[Plugin]] = None,
-        model: Optional[str] = None,
+        plugins: list[Plugin] | None = None,
+        model: str | None = None,
     ) -> None:
         self.model = model
         if 'GENKIT_ENV' in os.environ and os.environ['GENKIT_ENV'] == 'dev':
@@ -71,11 +71,11 @@ class Genkit:
 
     def generate(
         self,
-        model: Optional[str] = None,
-        prompt: Optional[Union[str]] = None,
-        messages: Optional[List[Message]] = None,
-        system: Optional[Union[str]] = None,
-        tools: Optional[List[str]] = None,
+        model: str | None = None,
+        prompt: str | None = None,
+        messages: list[Message] | None = None,
+        system: str | None = None,
+        tools: list[str] | None = None,
     ) -> GenerateResponse:
         model = model if model is not None else self.model
         if model is None:
@@ -86,7 +86,7 @@ class Genkit:
         return modelAction.fn(GenerateRequest(messages=messages)).response
 
     def flow(
-        self, name: Optional[str] = None
+        self, name: str | None = None
     ) -> Callable[[Callable], Callable]:
         def wrapper(func: Callable) -> Callable:
             flowName = name if name is not None else func.__name__
@@ -111,7 +111,7 @@ class Genkit:
         self,
         name: str,
         fn: ModelFn,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: dict[str, Any] | None = None,
     ) -> None:
         action = Action(name=name, type='model', fn=fn, metadata=metadata)
         self.registry.register_action('model', name, action)
@@ -120,16 +120,16 @@ class Genkit:
         self,
         name: str,
         fn: PromptFn,
-        model: Optional[str] = None,
-    ) -> Callable[[Optional[Any]], GenerateResponse]:
-        def prompt(input: Optional[Any] = None) -> GenerateResponse:
+        model: str | None = None,
+    ) -> Callable[[Any | None], GenerateResponse]:
+        def prompt(input: Any | None = None) -> GenerateResponse:
             req = fn(input)
             return self.generate(messages=req.messages, model=model)
 
         action = Action('model', name, prompt)
         self.registry.register_action('model', name, action)
 
-        def wrapper(input: Optional[Any] = None) -> GenerateResponse:
+        def wrapper(input: Any | None = None) -> GenerateResponse:
             return action.fn(input)
 
         return wrapper

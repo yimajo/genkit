@@ -9,16 +9,17 @@
 from __future__ import annotations
 
 from enum import Enum
-from pydantic import ConfigDict, BaseModel, Field
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
+
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class InstrumentationLibrary(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     name: str
-    version: Optional[str] = None
-    schemaUrl: Optional[str] = None
+    version: str | None = None
+    schemaUrl: str | None = None
 
 
 class SpanContext(BaseModel):
@@ -26,7 +27,7 @@ class SpanContext(BaseModel):
 
     traceId: str
     spanId: str
-    isRemote: Optional[bool] = None
+    isRemote: bool | None = None
     traceFlags: float
 
 
@@ -45,24 +46,24 @@ class SpanMetadata(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     name: str
-    state: Optional[State] = None
-    input: Optional[Any] = None
-    output: Optional[Any] = None
-    isRoot: Optional[bool] = None
-    metadata: Optional[Dict[str, str]] = None
+    state: State | None = None
+    input: Any | None = None
+    output: Any | None = None
+    isRoot: bool | None = None
+    metadata: dict[str, str] | None = None
 
 
 class SpanStatus(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     code: float
-    message: Optional[str] = None
+    message: str | None = None
 
 
 class Annotation(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    attributes: Dict[str, Any]
+    attributes: dict[str, Any]
     description: str
 
 
@@ -84,7 +85,7 @@ class CandidateError(BaseModel):
 
     index: float
     code: Code
-    message: Optional[str] = None
+    message: str | None = None
 
 
 class FinishReason(Enum):
@@ -98,12 +99,12 @@ class FinishReason(Enum):
 class DataPart(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    text: Optional[Any] = None
-    media: Optional[Any] = None
-    toolRequest: Optional[Any] = None
-    toolResponse: Optional[Any] = None
-    data: Optional[Any] = None
-    metadata: Optional[Dict[str, Any]] = None
+    text: Any | None = None
+    media: Any | None = None
+    toolRequest: Any | None = None
+    toolResponse: Any | None = None
+    data: Any | None = None
+    metadata: dict[str, Any] | None = None
 
 
 class Format(Enum):
@@ -115,64 +116,64 @@ class Format(Enum):
 class Output(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    format: Optional[Format] = None
-    schema_: Optional[Dict[str, Any]] = Field(None, alias='schema')
+    format: Format | None = None
+    schema_: dict[str, Any] | None = Field(None, alias='schema')
 
 
 class Content(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     text: str
-    media: Optional[Any] = None
+    media: Any | None = None
 
 
 class Media(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    contentType: Optional[str] = None
+    contentType: str | None = None
     url: str
 
 
 class Content1(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    text: Optional[Any] = None
+    text: Any | None = None
     media: Media
 
 
 class ContextItem(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    content: List[Union[Content, Content1]]
-    metadata: Optional[Dict[str, Any]] = None
+    content: list[Content | Content1]
+    metadata: dict[str, Any] | None = None
 
 
 class GenerationCommonConfig(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    version: Optional[str] = None
-    temperature: Optional[float] = None
-    maxOutputTokens: Optional[float] = None
-    topK: Optional[float] = None
-    topP: Optional[float] = None
-    stopSequences: Optional[List[str]] = None
+    version: str | None = None
+    temperature: float | None = None
+    maxOutputTokens: float | None = None
+    topK: float | None = None
+    topP: float | None = None
+    stopSequences: list[str] | None = None
 
 
 class GenerationUsage(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    inputTokens: Optional[float] = None
-    outputTokens: Optional[float] = None
-    totalTokens: Optional[float] = None
-    inputCharacters: Optional[float] = None
-    outputCharacters: Optional[float] = None
-    inputImages: Optional[float] = None
-    outputImages: Optional[float] = None
-    inputVideos: Optional[float] = None
-    outputVideos: Optional[float] = None
-    inputAudioFiles: Optional[float] = None
-    outputAudioFiles: Optional[float] = None
-    custom: Optional[Dict[str, float]] = None
+    inputTokens: float | None = None
+    outputTokens: float | None = None
+    totalTokens: float | None = None
+    inputCharacters: float | None = None
+    outputCharacters: float | None = None
+    inputImages: float | None = None
+    outputImages: float | None = None
+    inputVideos: float | None = None
+    outputVideos: float | None = None
+    inputAudioFiles: float | None = None
+    outputAudioFiles: float | None = None
+    custom: dict[str, float] | None = None
 
 
 class Role(Enum):
@@ -187,13 +188,13 @@ class ToolDefinition(BaseModel):
 
     name: str
     description: str
-    inputSchema: Dict[str, Any] = Field(
+    inputSchema: dict[str, Any] = Field(
         ..., description='Valid JSON Schema representing the input of the tool.'
     )
-    outputSchema: Optional[Dict[str, Any]] = Field(
+    outputSchema: dict[str, Any] | None = Field(
         None, description='Valid JSON Schema describing the output of the tool.'
     )
-    metadata: Optional[Dict[str, Any]] = Field(
+    metadata: dict[str, Any] | None = Field(
         None, description='additional metadata for this tool definition'
     )
 
@@ -201,66 +202,66 @@ class ToolDefinition(BaseModel):
 class ToolRequest1(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    ref: Optional[str] = None
+    ref: str | None = None
     name: str
-    input: Optional[Any] = None
+    input: Any | None = None
 
 
 class ToolResponse1(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    ref: Optional[str] = None
+    ref: str | None = None
     name: str
-    output: Optional[Any] = None
+    output: Any | None = None
 
 
 class Content2(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     text: str
-    media: Optional[Any] = None
+    media: Any | None = None
 
 
 class Media2(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    contentType: Optional[str] = None
+    contentType: str | None = None
     url: str
 
 
 class Content3(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    text: Optional[Any] = None
+    text: Any | None = None
     media: Media2
 
 
 class Items(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    content: List[Union[Content2, Content3]]
-    metadata: Optional[Dict[str, Any]] = None
+    content: list[Content2 | Content3]
+    metadata: dict[str, Any] | None = None
 
 
 class OutputModel(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    format: Optional[Format] = None
-    schema_: Optional[Dict[str, Any]] = Field(None, alias='schema')
+    format: Format | None = None
+    schema_: dict[str, Any] | None = Field(None, alias='schema')
 
 
 class Link(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    context: Optional[SpanContext] = None
-    attributes: Optional[Dict[str, Any]] = None
-    droppedAttributesCount: Optional[float] = None
+    context: SpanContext | None = None
+    attributes: dict[str, Any] | None = None
+    droppedAttributesCount: float | None = None
 
 
 class TimeEvents(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    timeEvent: Optional[List[TimeEvent]] = None
+    timeEvent: list[TimeEvent] | None = None
 
 
 class SpanData(BaseModel):
@@ -268,110 +269,110 @@ class SpanData(BaseModel):
 
     spanId: str
     traceId: str
-    parentSpanId: Optional[str] = None
+    parentSpanId: str | None = None
     startTime: float
     endTime: float
-    attributes: Dict[str, Any]
+    attributes: dict[str, Any]
     displayName: str
-    links: Optional[List[Link]] = None
+    links: list[Link] | None = None
     instrumentationLibrary: InstrumentationLibrary
     spanKind: str
-    sameProcessAsParentSpan: Optional[SameProcessAsParentSpan] = None
-    status: Optional[SpanStatus] = None
-    timeEvents: Optional[TimeEvents] = None
-    truncated: Optional[bool] = None
+    sameProcessAsParentSpan: SameProcessAsParentSpan | None = None
+    status: SpanStatus | None = None
+    timeEvents: TimeEvents | None = None
+    truncated: bool | None = None
 
 
 class TraceData(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     traceId: str
-    displayName: Optional[str] = None
-    startTime: Optional[float] = None
-    endTime: Optional[float] = None
-    spans: Dict[str, SpanData]
+    displayName: str | None = None
+    startTime: float | None = None
+    endTime: float | None = None
+    spans: dict[str, SpanData]
 
 
 class MediaPart(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    text: Optional[Any] = None
+    text: Any | None = None
     media: Media
-    toolRequest: Optional[Any] = None
-    toolResponse: Optional[Any] = None
-    data: Optional[Any] = None
-    metadata: Optional[Dict[str, Any]] = None
+    toolRequest: Any | None = None
+    toolResponse: Any | None = None
+    data: Any | None = None
+    metadata: dict[str, Any] | None = None
 
 
 class Supports(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    multiturn: Optional[bool] = None
-    media: Optional[bool] = None
-    tools: Optional[bool] = None
-    systemRole: Optional[bool] = None
-    output: Optional[List[Format]] = None
-    context: Optional[bool] = None
+    multiturn: bool | None = None
+    media: bool | None = None
+    tools: bool | None = None
+    systemRole: bool | None = None
+    output: list[Format] | None = None
+    context: bool | None = None
 
 
 class ModelInfo(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    versions: Optional[List[str]] = None
-    label: Optional[str] = None
-    supports: Optional[Supports] = None
+    versions: list[str] | None = None
+    label: str | None = None
+    supports: Supports | None = None
 
 
 class TextPart(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     text: str
-    media: Optional[Any] = None
-    toolRequest: Optional[Any] = None
-    toolResponse: Optional[Any] = None
-    data: Optional[Any] = None
-    metadata: Optional[Dict[str, Any]] = None
+    media: Any | None = None
+    toolRequest: Any | None = None
+    toolResponse: Any | None = None
+    data: Any | None = None
+    metadata: dict[str, Any] | None = None
 
 
 class ToolRequestPart(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    text: Optional[Any] = None
-    media: Optional[Any] = None
+    text: Any | None = None
+    media: Any | None = None
     toolRequest: ToolRequest1
-    toolResponse: Optional[Any] = None
-    data: Optional[Any] = None
-    metadata: Optional[Dict[str, Any]] = None
+    toolResponse: Any | None = None
+    data: Any | None = None
+    metadata: dict[str, Any] | None = None
 
 
 class ToolResponsePart(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    text: Optional[Any] = None
-    media: Optional[Any] = None
-    toolRequest: Optional[Any] = None
+    text: Any | None = None
+    media: Any | None = None
+    toolRequest: Any | None = None
     toolResponse: ToolResponse1
-    data: Optional[Any] = None
-    metadata: Optional[Dict[str, Any]] = None
+    data: Any | None = None
+    metadata: dict[str, Any] | None = None
 
 
 class DocumentData(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    content: List[
-        Union[TextPart, MediaPart, ToolRequestPart, ToolResponsePart, DataPart]
+    content: list[
+        TextPart | MediaPart | ToolRequestPart | ToolResponsePart | DataPart
     ]
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: dict[str, Any] | None = None
 
 
 class GenerateResponseChunk(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    content: List[
-        Union[TextPart, MediaPart, ToolRequestPart, ToolResponsePart, DataPart]
+    content: list[
+        TextPart | MediaPart | ToolRequestPart | ToolResponsePart | DataPart
     ]
-    custom: Optional[Any] = None
-    aggregated: Optional[bool] = None
+    custom: Any | None = None
+    aggregated: bool | None = None
     index: float
 
 
@@ -379,20 +380,20 @@ class Message(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     role: Role
-    content: List[
-        Union[TextPart, MediaPart, ToolRequestPart, ToolResponsePart, DataPart]
+    content: list[
+        TextPart | MediaPart | ToolRequestPart | ToolResponsePart | DataPart
     ]
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: dict[str, Any] | None = None
 
 
 class ModelResponseChunk(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    content: List[
-        Union[TextPart, MediaPart, ToolRequestPart, ToolResponsePart, DataPart]
+    content: list[
+        TextPart | MediaPart | ToolRequestPart | ToolResponsePart | DataPart
     ]
-    custom: Optional[Any] = None
-    aggregated: Optional[bool] = None
+    custom: Any | None = None
+    aggregated: bool | None = None
 
 
 class Candidate(BaseModel):
@@ -400,53 +401,53 @@ class Candidate(BaseModel):
 
     index: float
     message: Message
-    usage: Optional[GenerationUsage] = None
+    usage: GenerationUsage | None = None
     finishReason: FinishReason
-    finishMessage: Optional[str] = None
-    custom: Optional[Any] = None
+    finishMessage: str | None = None
+    custom: Any | None = None
 
 
 class GenerateRequest(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    messages: List[Message]
-    config: Optional[Any] = None
-    tools: Optional[List[ToolDefinition]] = None
-    output: Optional[Output] = None
-    context: Optional[List[ContextItem]] = None
-    candidates: Optional[float] = None
+    messages: list[Message]
+    config: Any | None = None
+    tools: list[ToolDefinition] | None = None
+    output: Output | None = None
+    context: list[ContextItem] | None = None
+    candidates: float | None = None
 
 
 class GenerateResponse(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    message: Optional[Message] = None
-    finishReason: Optional[FinishReason] = None
-    finishMessage: Optional[str] = None
-    latencyMs: Optional[float] = None
-    usage: Optional[GenerationUsage] = None
-    custom: Optional[Any] = None
-    request: Optional[GenerateRequest] = None
-    candidates: Optional[List[Candidate]] = None
+    message: Message | None = None
+    finishReason: FinishReason | None = None
+    finishMessage: str | None = None
+    latencyMs: float | None = None
+    usage: GenerationUsage | None = None
+    custom: Any | None = None
+    request: GenerateRequest | None = None
+    candidates: list[Candidate] | None = None
 
 
 class ModelRequest(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    messages: List[Message]
-    config: Optional[Any] = None
-    tools: Optional[List[ToolDefinition]] = None
-    output: Optional[OutputModel] = None
-    context: Optional[List[Items]] = None
+    messages: list[Message]
+    config: Any | None = None
+    tools: list[ToolDefinition] | None = None
+    output: OutputModel | None = None
+    context: list[Items] | None = None
 
 
 class ModelResponse(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
-    message: Optional[Message] = None
+    message: Message | None = None
     finishReason: FinishReason
-    finishMessage: Optional[str] = None
-    latencyMs: Optional[float] = None
-    usage: Optional[GenerationUsage] = None
-    custom: Optional[Any] = None
-    request: Optional[GenerateRequest] = None
+    finishMessage: str | None = None
+    latencyMs: float | None = None
+    usage: GenerationUsage | None = None
+    custom: Any | None = None
+    request: GenerateRequest | None = None

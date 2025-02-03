@@ -4,19 +4,19 @@
 
 import json
 import os
-import requests
 import sys
+from collections.abc import Sequence
+from typing import Any
 
-from typing import Any, Dict, Sequence
+import requests
 from opentelemetry import trace
-from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry import trace as trace_api
+from opentelemetry.sdk.trace import ReadableSpan, TracerProvider
 from opentelemetry.sdk.trace.export import (
+    SimpleSpanProcessor,
     SpanExporter,
     SpanExportResult,
-    SimpleSpanProcessor,
 )
-from opentelemetry import trace as trace_api
-from opentelemetry.sdk.trace import ReadableSpan
 
 
 class TelemetryServerSpanExporter(SpanExporter):
@@ -87,8 +87,8 @@ class TelemetryServerSpanExporter(SpanExporter):
         return True
 
 
-def convert_attributes(attributes: Dict[str, Any]) -> Dict[str, Any]:
-    attrs: Dict[str, Any] = {}
+def convert_attributes(attributes: dict[str, Any]) -> dict[str, Any]:
+    attrs: dict[str, Any] = {}
     for key in attributes:
         attrs[key] = attributes[key]
     return attrs

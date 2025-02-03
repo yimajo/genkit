@@ -4,12 +4,11 @@
 
 import inspect
 import json
-
-from typing import Dict, Optional, Callable, Any
-
-from pydantic import ConfigDict, BaseModel, TypeAdapter
+from collections.abc import Callable
+from typing import Any
 
 from genkit.core.tracing import tracer
+from pydantic import BaseModel, ConfigDict, TypeAdapter
 
 
 class ActionResponse(BaseModel):
@@ -26,8 +25,8 @@ class Action:
         name: str,
         fn: Callable,
         description: str | None = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        spanMetadata: Optional[Dict[str, str]] = None,
+        metadata: dict[str, Any] | None = None,
+        spanMetadata: dict[str, str] | None = None,
     ):
         self.type = type
         self.name = name

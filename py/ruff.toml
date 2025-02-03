@@ -1,0 +1,74 @@
+# Ruff configuration
+# Based on https://google.github.io/styleguide/pyguide.html
+indent-width   = 4
+line-length    = 80
+target-version = "py312"
+
+[lint]
+ignore = [
+  "Q001",
+] # Ignore multiline quote style to avoid conflict with formatter
+select = [
+  "E",
+  "F",
+  "B",
+  "I",
+  "N",
+  "UP",
+  "ANN",
+  "S",
+  "BLE",
+  "FBT",
+  "C4",
+  "DTZ",
+  "T10",
+  "EM",
+  "ISC",
+  "ICN",
+  "G",
+  "INP",
+  "PIE",
+  "T20",
+  "PYI",
+  "PT",
+  "Q",
+  "RSE",
+  "RET",
+  "SLF",
+  "SLOT",
+  "SIM",
+  "TID",
+  "TCH",
+  "INT",
+  "ARG",
+  "PTH",
+  "TD",
+  "FIX",
+  "ERA",
+  "PD",
+  "PGH",
+  "PL",
+  "TRY",
+  "FLY",
+  "PERF",
+  "RUF",
+]
+
+[format]
+docstring-code-format      = true
+docstring-code-line-length = 80
+indent-style               = "space"
+line-ending                = "lf"
+quote-style                = "single" # Recommendation is `Pick ' or " and stick with it.` See: https://google.github.io/styleguide/pyguide.html#310-strings
+skip-magic-trailing-comma  = false
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.pycodestyle]
+max-line-length = 80
+
+[lint.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes    = "single"
+multiline-quotes = "single"

@@ -72,11 +72,6 @@ hello                      = { workspace = true }
 [tool.uv.workspace]
 members = ["packages/*", "plugins/*", "samples/*"]
 
-# Ruff checks and formatting.
-[tool.ruff]
-indent-width = 4
-line-length  = 80
-
 [tool.ruff.format]
 line-ending = "lf"
 quote-style = "single"

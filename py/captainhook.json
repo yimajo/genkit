@@ -37,7 +37,7 @@
           "run": "py/bin/fmt"
         },
         {
-          "run": "uvx --directory py ruff check --fix ."
+          "run": "uvx --directory py ruff --config ruff.toml check --fix ."
         },
         {
           "run": "py/bin/run_tests"
@@ -85,7 +85,7 @@
           "run": "py/bin/fmt"
         },
         {
-          "run": "uvx --directory py ruff check --fix ."
+          "run": "uvx --directory py ruff --config ruff.toml check --fix ."
         },
         {
           "run": "py/bin/run_tests"

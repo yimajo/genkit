@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 
-from genkit.core.types import Message, TextPart, GenerateRequest
-from genkit.plugins.vertex_ai import vertexAI, gemini
+from genkit.core.types import GenerateRequest, Message, TextPart
+from genkit.plugins.vertex_ai import gemini, vertexAI
 from genkit.veneer import Genkit
 from pydantic import BaseModel, Field
 

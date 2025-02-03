@@ -3,11 +3,10 @@
 
 
 import json
-
 from http.server import BaseHTTPRequestHandler
-from pydantic import BaseModel
 
 from genkit.core.registry import Registry
+from pydantic import BaseModel
 
 
 def MakeReflectionServer(registry: Registry):

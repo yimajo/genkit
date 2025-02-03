@@ -23,7 +23,7 @@ from genkit.plugins.vertex_ai.models import (
 )
 
 
-def square(n: int | float) -> int | float:
+def square(n: float) -> int | float:
     return n * n
 
 

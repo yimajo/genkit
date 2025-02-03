@@ -6,11 +6,10 @@
 Google Cloud Vertex AI Plugin for Genkit.
 """
 
+from collections.abc import Callable
+from typing import Optional
+
 import vertexai
-
-from typing import Callable, Optional
-from vertexai.generative_models import GenerativeModel, Content, Part
-
 from genkit.core.types import (
     GenerateRequest,
     GenerateResponse,
@@ -18,13 +17,14 @@ from genkit.core.types import (
     TextPart,
 )
 from genkit.veneer import Genkit
+from vertexai.generative_models import Content, GenerativeModel, Part
 
 
 def package_name() -> str:
     return 'genkit.plugins.vertex_ai'
 
 
-def vertexAI(project_id: Optional[str] = None) -> Callable[[Genkit], None]:
+def vertexAI(project_id: str | None = None) -> Callable[[Genkit], None]:
     def plugin(ai: Genkit) -> None:
         vertexai.init(location='us-central1', project=project_id)
 
@@ -64,4 +64,4 @@ def gemini(name: str) -> str:
     return f'vertexai/{name}'
 
 
-__all__ = ['package_name', 'vertexAI', 'gemini']
+__all__ = ['gemini', 'package_name', 'vertexAI']
