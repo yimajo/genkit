@@ -17,4 +17,5 @@ def register_ollama_embedder(
     embedder: EmbeddingModelDefinition,
     client: ollama_api.Client,
 ) -> None:
+    # TODO: implement this method once ai.define_embedder will exist
     pass
