@@ -5,11 +5,10 @@
 """Exposes an API for inspecting and interacting with Genkit in development."""
 
 import json
-
 from http.server import BaseHTTPRequestHandler
-from pydantic import BaseModel
 
 from genkit.core.registry import Registry
+from pydantic import BaseModel
 
 
 def make_reflection_server(registry: Registry):
@@ -20,7 +19,7 @@ def make_reflection_server(registry: Registry):
 
         ENCODING = 'utf-8'
 
-        def do_GET(self):
+        def do_GET(self) -> None:  # noqa: N802
             """Handles GET requests."""
             if self.path == '/api/__health':
                 self.send_response(200)
@@ -49,7 +48,7 @@ def make_reflection_server(registry: Registry):
                 self.send_response(404)
                 self.end_headers()
 
-        def do_POST(self):
+        def do_POST(self) -> None:  # noqa: N802
             """Handles POST requests."""
             if self.path == '/api/notify':
                 self.send_response(200)

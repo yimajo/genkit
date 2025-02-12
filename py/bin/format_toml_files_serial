@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#
+# Format all TOML files in the project.
+#
+# Copyright 2025 Google LLC
+# SPDX-License-Identifier: Apache-2.0
+
+set -euo pipefail
+
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+taplo format --config "${GIT_ROOT}/py/taplo.toml"
+
+exit $?

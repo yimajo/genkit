@@ -7,17 +7,17 @@
 import json
 import os
 import sys
-from typing import Any, Dict, Sequence
+from collections.abc import Sequence
+from typing import Any
 
 import requests
-from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry import trace as trace_api
+from opentelemetry.sdk.trace import ReadableSpan, TracerProvider
 from opentelemetry.sdk.trace.export import (
+    SimpleSpanProcessor,
     SpanExporter,
     SpanExportResult,
-    SimpleSpanProcessor,
 )
-from opentelemetry import trace as trace_api
-from opentelemetry.sdk.trace import ReadableSpan
 
 
 class TelemetryServerSpanExporter(SpanExporter):
@@ -71,7 +71,8 @@ class TelemetryServerSpanExporter(SpanExporter):
                 span_data['startTime'] = span.start_time
                 span_data['endTime'] = span.end_time
 
-            # TODO: telemetry server URL must be dynamic, whatever tools notification says
+            # TODO: telemetry server URL must be dynamic, whatever tools
+            # notification says
             requests.post(
                 'http://localhost:4033/api/traces',
                 data=json.dumps(span_data),
@@ -88,8 +89,8 @@ class TelemetryServerSpanExporter(SpanExporter):
         return True
 
 
-def convert_attributes(attributes: Dict[str, Any]) -> Dict[str, Any]:
-    attrs: Dict[str, Any] = {}
+def convert_attributes(attributes: dict[str, Any]) -> dict[str, Any]:
+    attrs: dict[str, Any] = {}
     for key in attributes:
         attrs[key] = attributes[key]
     return attrs

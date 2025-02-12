@@ -53,17 +53,6 @@
         },
         {
           "run": "go test go/..."
-        },
-        {
-          "run": "govulncheck -C go ./...",
-          "conditions": [
-            {
-              "run": "CaptainHook::FileChanged.Any",
-              "options": {
-                "files": ["go/go.mod", "go.sum", "*.go"]
-              }
-            }
-          ]
         }
       ]
     },
@@ -111,7 +100,7 @@
             {
               "run": "CaptainHook::FileChanged.Any",
               "options": {
-                "files": ["go/go.mod", "go.sum", "*.go"]
+                "files": ["go/**/*.go", "go/**/go.mod", "go/**/go.sum"]
               }
             }
           ]

@@ -75,12 +75,56 @@ members = ["packages/*", "plugins/*", "samples/*"]
 
 # Ruff checks and formatting.
 [tool.ruff]
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".git-rewrite",
+  ".hg",
+  ".ipynb_checkpoints",
+  ".mypy_cache",
+  ".nox",
+  ".pants.d",
+  ".pyenv",
+  ".pytest_cache",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  ".vscode",
+  "__pypackages__",
+  "_build",
+  "bazel-*",
+  "buck-out",
+  "build",
+  "dist",
+  "node_modules",
+  "site-packages",
+  "venv",
+]
 indent-width = 4
-line-length  = 80
+line-length = 80
+target-version = "py312"
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+select = [
+  "E",  # pycodestyle (errors)
+  "W",  # pycodestyle (warnings)
+  "F",  # pyflakes
+  "I",  # isort (import sorting)
+  "UP", # pyupgrade (Python version upgrades)
+  "B",  # flake8-bugbear (common bugs)
+  "N",  # pep8-naming (naming conventions)
+]
 
 [tool.ruff.format]
-line-ending = "lf"
-quote-style = "single"
+indent-style              = "space"
+line-ending               = "lf"
+quote-style               = "single"
+skip-magic-trailing-comma = false
 
 # Static type checking.
 [tool.mypy]
@@ -89,8 +133,10 @@ disallow_untyped_defs    = true
 warn_unused_configs      = true
 
 [tool.datamodel-codegen]
-#strict-types = ["str", "int", "float", "bool", "bytes"] # Don't use; produces StrictStr, StrictInt, etc.
 #collapse-root-models = true # Don't use; produces Any as types.
+#strict-types = ["str", "int", "float", "bool", "bytes"] # Don't use; produces StrictStr, StrictInt, etc.
+#use-subclass-enum        = true
+capitalize-enum-members  = true
 disable-timestamp        = true
 enable-version-header    = true
 field-constraints        = true
@@ -98,8 +144,10 @@ input                    = "../genkit-tools/genkit-schema.json"
 input-file-type          = "jsonschema"
 output                   = "packages/genkit/src/genkit/core/schemas.py"
 output-model-type        = "pydantic_v2.BaseModel"
+snake-case-field         = true
 strict-nullable          = true
 target-python-version    = "3.12"
 use-schema-description   = true
 use-standard-collections = true
 use-union-operator       = true
+use-unique-items-as-set  = true

@@ -1,19 +1,20 @@
 # Copyright 2025 Google LLC
 # SPDX-License-Identifier: Apache-2.
+
 import inspect
 import json
-
-from typing import Dict, Optional, Callable, Any
-from pydantic import ConfigDict, BaseModel, TypeAdapter
+from collections.abc import Callable
+from typing import Any
 
 from genkit.core.tracing import tracer
+from pydantic import BaseModel, ConfigDict, Field, TypeAdapter
 
 
 class ActionResponse(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     response: Any
-    traceId: str
+    trace_id: str = Field(alias='traceId')
 
 
 class Action:
@@ -26,9 +27,9 @@ class Action:
         action_type: str,
         name: str,
         fn: Callable,
-        description: Optional[str] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        span_metadata: Optional[Dict[str, str]] = None,
+        description: str | None = None,
+        metadata: dict[str, Any] | None = None,
+        span_metadata: dict[str, str] | None = None,
     ):
         # TODO(Tatsiana Havina): separate a long constructor into methods.
         self.type = action_type
