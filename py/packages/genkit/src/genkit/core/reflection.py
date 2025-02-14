@@ -37,8 +37,8 @@ def make_reflection_server(registry: Registry):
                         actions[key] = {
                             'key': key,
                             'name': action.name,
-                            'inputSchema': action.input_schema,
-                            'outputSchema': action.output_schema,
+                            'inputSchema': action.inputSchema,
+                            'outputSchema': action.outputSchema,
                             'metadata': action.metadata,
                         }
 
@@ -61,11 +61,11 @@ def make_reflection_server(registry: Registry):
                 print(payload)
                 action = registry.lookup_by_absolute_name(payload['key'])
                 if '/flow/' in payload['key']:
-                    input_action = action.input_type.validate_python(
+                    input_action = action.inputType.validate_python(
                         payload['input']['start']['input']
                     )
                 else:
-                    input_action = action.input_type.validate_python(
+                    input_action = action.inputType.validate_python(
                         payload['input']
                     )
 
@@ -82,7 +82,7 @@ def make_reflection_server(registry: Registry):
                             '{"result":  '
                             + output.response.model_dump_json()
                             + ', "traceId": "'
-                            + output.trace_id
+                            + output.traceId
                             + '"}',
                             self.ENCODING,
                         )
@@ -93,7 +93,7 @@ def make_reflection_server(registry: Registry):
                             json.dumps(
                                 {
                                     'result': output.response,
-                                    'telemetry': {'traceId': output.trace_id},
+                                    'telemetry': {'traceId': output.traceId},
                                 }
                             ),
                             self.ENCODING,

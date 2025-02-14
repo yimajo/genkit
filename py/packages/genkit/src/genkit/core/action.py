@@ -1,5 +1,6 @@
 # Copyright 2025 Google LLC
 # SPDX-License-Identifier: Apache-2.
+
 import inspect
 import json
 from collections.abc import Callable
@@ -13,7 +14,7 @@ class ActionResponse(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     response: Any
-    trace_id: str
+    traceId: str  # noqa: N815
 
 
 class Action:
@@ -63,7 +64,7 @@ class Action:
                 else:
                     span.set_attribute('genkit:output', json.dumps(output))
 
-                return ActionResponse(response=output, trace_id=trace_id)
+                return ActionResponse(response=output, traceId=trace_id)
 
         self.fn = fn_to_call
         self.description = description

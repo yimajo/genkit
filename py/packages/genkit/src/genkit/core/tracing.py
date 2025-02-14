@@ -8,7 +8,7 @@ import json
 import os
 import sys
 from collections.abc import Sequence
-from typing import Any, cast
+from typing import Any
 
 import requests  # type: ignore[import-untyped]
 from opentelemetry import trace as trace_api
@@ -36,9 +36,7 @@ class TelemetryServerSpanExporter(SpanExporter):
                 'traceId': f'{span.context.trace_id}',
                 'startTime': span.start_time / 1000000,
                 'endTime': span.end_time / 1000000,
-                'attributes': convert_attributes(
-                    attributes=cast(span.attributes, dict),  # type: ignore
-                ),
+                'attributes': convert_attributes(span.attributes),
                 'displayName': span.name,
                 # "links": span.links,
                 'spanKind': trace_api.SpanKind(span.kind).name,
@@ -73,8 +71,8 @@ class TelemetryServerSpanExporter(SpanExporter):
                 span_data['startTime'] = span.start_time
                 span_data['endTime'] = span.end_time
 
-            # TODO: telemetry server URL must be dynamic,
-            # whatever tools notification says
+            # TODO: telemetry server URL must be dynamic, whatever tools
+            # notification says
             requests.post(
                 'http://localhost:4033/api/traces',
                 data=json.dumps(span_data),
