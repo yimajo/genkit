@@ -10,7 +10,6 @@ import json
 import os
 import threading
 from collections.abc import Callable
-from http.server import HTTPServer
 from typing import Any
 
 from genkit.ai.model import ModelFn
@@ -70,11 +69,19 @@ class Genkit:
             for plugin in plugins:
                 plugin(self)
 
-    def start_server(self) -> None:
-        httpd = HTTPServer(
-            ('127.0.0.1', 3100), make_reflection_server(self.registry)
-        )
-        httpd.serve_forever()
+    def start_server(
+        self, *, host: str = '127.0.0.1', port: int = 3100
+    ) -> None:
+        """Start the reflection server.
+
+        Args:
+            host: Host address to bind to. Defaults to "127.0.0.1".
+            port: Port number to listen on. Defaults to 3100.
+        """
+        app = make_reflection_server(self.registry)
+        import uvicorn
+
+        uvicorn.run(app, host=host, port=port)
 
     def generate(
         self,
