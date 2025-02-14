@@ -4,13 +4,14 @@
 
 """The registry is used to store and lookup resources."""
 
+from typing import Dict
 from genkit.core.action import Action
 
 
 class Registry:
     """Stores actions, trace stores, flow state stores, plugins, and schemas."""
 
-    actions: dict[str, dict[str, Action]] = {}
+    actions: Dict[str, Dict[str, Action]] = {}
 
     def register_action(self, action_type: str, name: str, action: Action):
         if action_type not in self.actions:

@@ -5,10 +5,11 @@
 """Exposes an API for inspecting and interacting with Genkit in development."""
 
 import json
+
 from http.server import BaseHTTPRequestHandler
+from pydantic import BaseModel
 
 from genkit.core.registry import Registry
-from pydantic import BaseModel
 
 
 def make_reflection_server(registry: Registry):
@@ -19,7 +20,7 @@ def make_reflection_server(registry: Registry):
 
         ENCODING = 'utf-8'
 
-        def do_GET(self) -> None:  # noqa: N802
+        def do_GET(self):
             """Handles GET requests."""
             if self.path == '/api/__health':
                 self.send_response(200)
@@ -37,8 +38,8 @@ def make_reflection_server(registry: Registry):
                         actions[key] = {
                             'key': key,
                             'name': action.name,
-                            'inputSchema': action.input_schema,
-                            'outputSchema': action.output_schema,
+                            'inputSchema': action.inputSchema,
+                            'outputSchema': action.outputSchema,
                             'metadata': action.metadata,
                         }
 
@@ -48,24 +49,24 @@ def make_reflection_server(registry: Registry):
                 self.send_response(404)
                 self.end_headers()
 
-        def do_POST(self) -> None:  # noqa: N802
+        def do_POST(self):
             """Handles POST requests."""
             if self.path == '/api/notify':
                 self.send_response(200)
                 self.end_headers()
 
             elif self.path == '/api/runAction':
-                content_len = int(self.headers.get('Content-Length') or 0)
+                content_len = int(self.headers.get('Content-Length'))
                 post_body = self.rfile.read(content_len)
                 payload = json.loads(post_body.decode(encoding=self.ENCODING))
                 print(payload)
                 action = registry.lookup_by_absolute_name(payload['key'])
                 if '/flow/' in payload['key']:
-                    input_action = action.input_type.validate_python(
+                    input_action = action.inputType.validate_python(
                         payload['input']['start']['input']
                     )
                 else:
-                    input_action = action.input_type.validate_python(
+                    input_action = action.inputType.validate_python(
                         payload['input']
                     )
 
@@ -82,7 +83,7 @@ def make_reflection_server(registry: Registry):
                             '{"result":  '
                             + output.response.model_dump_json()
                             + ', "traceId": "'
-                            + output.trace_id
+                            + output.traceId
                             + '"}',
                             self.ENCODING,
                         )
@@ -93,7 +94,7 @@ def make_reflection_server(registry: Registry):
                             json.dumps(
                                 {
                                     'result': output.response,
-                                    'telemetry': {'traceId': output.trace_id},
+                                    'telemetry': {'traceId': output.traceId},
                                 }
                             ),
                             self.ENCODING,
