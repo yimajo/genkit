@@ -12,7 +12,7 @@ from typing import Any
 
 from genkit.ai.model import ModelFn
 from genkit.ai.prompt import PromptFn
-from genkit.core.action import Action, ActionKind
+from genkit.core.action import Action, ActionExecutionContext, ActionKind
 from genkit.core.plugin_abc import Plugin
 from genkit.core.reflection import make_reflection_server
 from genkit.core.registry import Registry
@@ -110,9 +110,14 @@ class Genkit:
         name: str,
         fn: ModelFn,
         metadata: dict[str, Any] | None = None,
+        fn_context: ActionExecutionContext | None = None,
     ) -> None:
         action = Action(
-            name=name, kind=ActionKind.MODEL, fn=fn, metadata=metadata
+            name=name,
+            kind=ActionKind.MODEL,
+            fn=fn,
+            metadata=metadata,
+            fn_context=fn_context,
         )
         self.registry.register_action(action)
 

@@ -57,11 +57,18 @@ class VertexAI(Plugin):
             }
         }
 
-    def _model_callback(self, request: GenerateRequest) -> GenerateResponse:
-        return self._handle_gemini_request(request=request)
+    def _model_callback(
+        self,
+        request: GenerateRequest,
+        **kwargs,
+    ) -> GenerateResponse:
+        return self._handle_gemini_request(
+            request=request,
+        )
 
     def _handle_gemini_request(
-        self, request: GenerateRequest
+        self,
+        request: GenerateRequest,
     ) -> GenerateResponse:
         gemini_msgs: list[Content] = []
         for m in request.messages:
