@@ -12,7 +12,6 @@ from genkit.core.plugin_abc import Plugin
 from genkit.core.schema_types import GenerateRequest, GenerateResponse
 from genkit.plugins.vertex_ai import constants as const
 from genkit.plugins.vertex_ai.gemini import Gemini, GeminiVersion
-from genkit.veneer.veneer import Genkit
 
 LOG = logging.getLogger(__name__)
 
@@ -37,12 +36,11 @@ class VertexAI(Plugin):
         self._gemini = Gemini(self.VERTEX_AI_GENERATIVE_MODEL_NAME)
         vertexai.init(project=project_id, location=location)
 
-    def attach_to_veneer(self, veneer: Genkit) -> None:
-        self._add_model_to_veneer(veneer=veneer)
+    def initialize(self) -> None:
+        self._register_model()
 
-    def _add_model_to_veneer(self, veneer: Genkit, **kwargs) -> None:
-        return super()._add_model_to_veneer(
-            veneer=veneer,
+    def _register_model(self, **kwargs) -> None:
+        return super()._register_model(
             name=vertexai_name(self.VERTEX_AI_GENERATIVE_MODEL_NAME),
             metadata=self.vertex_ai_model_metadata,
         )

@@ -8,7 +8,7 @@ import os
 import threading
 from collections.abc import Callable
 from http.server import HTTPServer
-from typing import Any
+from typing import Any, Type
 
 from genkit.ai.model import ModelFn
 from genkit.ai.prompt import PromptFn
@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 class Genkit:
     """Veneer user-facing API for application developers who use the SDK."""
 
-    registry: Registry = Registry()
+    registry: Type[Registry] = Registry
 
     def __init__(
         self,
@@ -60,7 +60,7 @@ class Genkit:
         else:
             for plugin in plugins:
                 if isinstance(plugin, Plugin):
-                    plugin.attach_to_veneer(veneer=self)
+                    plugin.initialize()
                 else:
                     raise ValueError(
                         f'Invalid {plugin=} provided to Genkit: '
@@ -68,7 +68,7 @@ class Genkit:
                     )
 
     def start_server(self, host: str, port: int) -> None:
-        httpd = HTTPServer((host, port), make_reflection_server(self.registry))
+        httpd = HTTPServer((host, port), make_reflection_server())
         httpd.serve_forever()
 
     def generate(
@@ -111,10 +111,11 @@ class Genkit:
         fn: ModelFn,
         metadata: dict[str, Any] | None = None,
     ) -> None:
-        action = Action(
-            name=name, kind=ActionKind.MODEL, fn=fn, metadata=metadata
+        self.registry.register_model(
+            name=name,
+            fn=fn,
+            metadata=metadata,
         )
-        self.registry.register_action(action)
 
     def define_prompt(
         self,

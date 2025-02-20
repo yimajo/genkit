@@ -12,7 +12,7 @@ from genkit.core.registry import Registry
 from pydantic import BaseModel
 
 
-def make_reflection_server(registry: Registry):
+def make_reflection_server():
     """Returns a ReflectionServer class."""
 
     class ReflectionServer(BaseHTTPRequestHandler):
@@ -31,9 +31,9 @@ def make_reflection_server(registry: Registry):
                 self.end_headers()
 
                 actions = {}
-                for action_type in registry.actions:
-                    for name in registry.actions[action_type]:
-                        action = registry.lookup_action(action_type, name)
+                for action_type in Registry.actions:
+                    for name in Registry.actions[action_type]:
+                        action = Registry.lookup_action(action_type, name)
                         key = f'/{action_type}/{name}'
                         actions[key] = {
                             'key': key,
@@ -59,7 +59,7 @@ def make_reflection_server(registry: Registry):
                 content_len = int(self.headers.get('Content-Length') or 0)
                 post_body = self.rfile.read(content_len)
                 payload = json.loads(post_body.decode(encoding=self.ENCODING))
-                action = registry.lookup_action_by_key(payload['key'])
+                action = Registry.lookup_action_by_key(payload['key'])
                 if '/flow/' in payload['key']:
                     input_action = action.input_type.validate_python(
                         payload['input']['start']['input']

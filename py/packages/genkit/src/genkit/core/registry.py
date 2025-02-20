@@ -4,6 +4,9 @@
 """The registry is used to store and lookup resources such as actions and
 flows."""
 
+from typing import Any
+
+from genkit.ai.model import ModelFn
 from genkit.core.action import Action, ActionKind
 
 
@@ -12,18 +15,32 @@ class Registry:
 
     actions: dict[ActionKind, dict[str, Action]] = {}
 
-    def register_action(self, action: Action) -> None:
+    @classmethod
+    def register_model(
+        cls,
+        name: str,
+        fn: ModelFn,
+        metadata: dict[str, Any] | None = None,
+    ):
+        action = Action(
+            name=name, kind=ActionKind.MODEL, fn=fn, metadata=metadata
+        )
+        cls.register_action(action=action)
+
+    @classmethod
+    def register_action(cls, action: Action) -> None:
         """Register an action.
 
         Args:
             action: The action to register.
         """
         kind = action.kind
-        if kind not in self.actions:
-            self.actions[kind] = {}
-        self.actions[kind][action.name] = action
+        if kind not in cls.actions:
+            cls.actions[kind] = {}
+        cls.actions[kind][action.name] = action
 
-    def lookup_action(self, kind: ActionKind, name: str) -> Action | None:
+    @classmethod
+    def lookup_action(cls, kind: ActionKind, name: str) -> Action | None:
         """Lookup an action by its kind and name.
 
         Args:
@@ -33,10 +50,11 @@ class Registry:
         Returns:
             The action if found, otherwise None.
         """
-        if kind in self.actions and name in self.actions[kind]:
-            return self.actions[kind][name]
+        if kind in cls.actions and name in cls.actions[kind]:
+            return cls.actions[kind][name]
 
-    def lookup_action_by_key(self, key: str) -> Action | None:
+    @classmethod
+    def lookup_action_by_key(cls, key: str) -> Action | None:
         """Lookup an action by its key.
 
         The key is of the form:
@@ -61,4 +79,4 @@ class Registry:
             )
             raise ValueError(msg)
         kind, name = tokens
-        return self.lookup_action(kind, name)
+        return cls.lookup_action(kind, name)

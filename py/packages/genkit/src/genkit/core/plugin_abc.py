@@ -6,12 +6,9 @@
 from __future__ import annotations
 
 import abc
-import typing
 
+from genkit.core.registry import Registry
 from genkit.core.schema_types import GenerateRequest, GenerateResponse
-
-if typing.TYPE_CHECKING:
-    from genkit.veneer import Genkit
 
 
 class Plugin(abc.ABC):
@@ -23,22 +20,19 @@ class Plugin(abc.ABC):
     """
 
     @abc.abstractmethod
-    def attach_to_veneer(self, veneer: Genkit) -> None:
+    def initialize(self) -> None:
         """
-        Entrypoint for attaching the plugin to the requested Genkit Veneer
-
-        Implementation must be provided for any inheriting plugin.
-
-        Args:
-            veneer: requested `genkit.veneer.Genkit` instance
+        Entrypoint for initializing the plugin instance in Genkit
 
         Returns:
             None
         """
         pass
 
-    def _add_model_to_veneer(
-        self, veneer: Genkit, name: str, metadata: dict | None = None
+    def _register_model(
+        self,
+        name: str,
+        metadata: dict | None = None,
     ) -> None:
         """
         Defines plugin's model in the Genkit Registry
@@ -46,7 +40,6 @@ class Plugin(abc.ABC):
         Uses self._model_callback as a generic callback wrapper
 
         Args:
-            veneer: requested `genkit.veneer.Genkit` instance
             name: name of the model to attach
             metadata: metadata information associated
                       with the provided model (optional)
@@ -56,7 +49,7 @@ class Plugin(abc.ABC):
         """
         if not metadata:
             metadata = {}
-        veneer.define_model(
+        Registry.register_model(
             name=name, fn=self._model_callback, metadata=metadata
         )
 
@@ -66,7 +59,6 @@ class Plugin(abc.ABC):
         Wrapper around any plugin's model callback.
 
         Is considered an entrypoint for any model's request.
-        Implementation must be provided for any inheriting plugin.
 
         Args:
             request: incoming request as generic
