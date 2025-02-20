@@ -6,12 +6,13 @@
 from typing import Any
 
 from genkit.core.schema_types import GenerateRequest, Message, Role, TextPart
-from genkit.plugins.vertex_ai import VertexAI
+from genkit.plugins.vertex_ai import VertexAI, vertexai_name
 from genkit.veneer.veneer import Genkit
 from pydantic import BaseModel, Field
 
 ai = Genkit(
-    plugins=[VertexAI()], model=VertexAI.VERTEX_AI_GENERATIVE_MODEL_NAME
+    plugins=[VertexAI()],
+    model=vertexai_name(VertexAI.VERTEX_AI_GENERATIVE_MODEL_NAME),
 )
 
 
@@ -54,6 +55,11 @@ def say_hi(name: str):
 
 
 @ai.flow()
+def embed_docs(docs: list[str]):
+    return ai.embed(model=vertexai_name('text-embedding-004'), documents=docs)
+
+
+@ai.flow()
 def sum_two_numbers2(my_input: MyInput) -> Any:
     return my_input.a + my_input.b
 
@@ -61,6 +67,7 @@ def sum_two_numbers2(my_input: MyInput) -> Any:
 def main() -> None:
     print(say_hi('John Doe'))
     print(sum_two_numbers2(MyInput(a=1, b=3)))
+    print(embed_docs(['banana muffins? ', 'banana bread? banana muffins?']))
 
 
 if __name__ == '__main__':

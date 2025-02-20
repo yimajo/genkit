@@ -64,11 +64,11 @@ SUPPORTED_MODELS = {
 
 class Gemini:
     def __init__(self, version):
-        self.version = version
+        self._version = version
 
     @property
     def gemini_model(self) -> GenerativeModel:
-        return GenerativeModel(self.version)
+        return GenerativeModel(self._version)
 
     def handle_request(self, request: GenerateRequest) -> GenerateResponse:
         messages: list[Content] = []

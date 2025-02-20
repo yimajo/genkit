@@ -11,6 +11,7 @@ import vertexai
 from genkit.core.plugin_abc import Plugin
 from genkit.core.schema_types import GenerateRequest, GenerateResponse
 from genkit.plugins.vertex_ai import constants as const
+from genkit.plugins.vertex_ai.embedding import Embedder, EmbeddingModels
 from genkit.plugins.vertex_ai.gemini import Gemini, GeminiVersion
 from genkit.veneer.veneer import Genkit
 
@@ -24,6 +25,7 @@ def vertexai_name(name: str) -> str:
 class VertexAI(Plugin):
     # This is 'gemini-1.5-pro' - the latest stable model
     VERTEX_AI_GENERATIVE_MODEL_NAME: str = GeminiVersion.GEMINI_1_5_FLASH.value
+    EMBEDDING_MODEL: str = EmbeddingModels.TEXT_EMBEDDING_004_ENG.value
 
     def __init__(
         self, project_id: str | None = None, location: str | None = None
@@ -35,16 +37,25 @@ class VertexAI(Plugin):
         location = location if location else const.DEFAULT_REGION
 
         self._gemini = Gemini(self.VERTEX_AI_GENERATIVE_MODEL_NAME)
+        self._embedder = Embedder(self.EMBEDDING_MODEL)
         vertexai.init(project=project_id, location=location)
 
     def attach_to_veneer(self, veneer: Genkit) -> None:
         self._add_model_to_veneer(veneer=veneer)
+        self._add_embedder_to_veneer(veneer=veneer)
 
     def _add_model_to_veneer(self, veneer: Genkit, **kwargs) -> None:
-        return super()._add_model_to_veneer(
+        super()._add_model_to_veneer(
             veneer=veneer,
             name=vertexai_name(self.VERTEX_AI_GENERATIVE_MODEL_NAME),
             metadata=self.vertex_ai_model_metadata,
+        )
+
+    def _add_embedder_to_veneer(self, veneer: Genkit, **kwargs) -> None:
+        veneer.define_embedder(
+            name=vertexai_name(self.EMBEDDING_MODEL),
+            fn=self._embedder.handle_request,
+            metadata={},
         )
 
     @property

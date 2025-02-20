@@ -8,6 +8,7 @@ from __future__ import annotations
 import abc
 import typing
 
+from genkit.ai.embedding import EmbedRequest, EmbedResponse
 from genkit.core.schema_types import GenerateRequest, GenerateResponse
 
 if typing.TYPE_CHECKING:

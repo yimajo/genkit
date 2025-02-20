@@ -10,6 +10,7 @@ from collections.abc import Callable
 from http.server import HTTPServer
 from typing import Any
 
+from genkit.ai.embedding import EmbedderFn, EmbedRequest, EmbedResponse
 from genkit.ai.model import ModelFn
 from genkit.ai.prompt import PromptFn
 from genkit.core.action import Action, ActionKind
@@ -87,6 +88,13 @@ class Genkit:
 
         return model_action.fn(GenerateRequest(messages=messages)).response
 
+    def embed(
+        self, model: str | None = None, documents: list[str] | None = None
+    ) -> EmbedResponse:
+        embed_action = self.registry.lookup_action(ActionKind.EMBEDDER, model)
+
+        return embed_action.fn(EmbedRequest(documents=documents)).response
+
     def flow(self, name: str | None = None) -> Callable[[Callable], Callable]:
         def wrapper(func: Callable) -> Callable:
             flow_name = name if name is not None else func.__name__
@@ -133,3 +141,14 @@ class Genkit:
             return action.fn(input_prompt)
 
         return wrapper
+
+    def define_embedder(
+        self,
+        name: str,
+        fn: EmbedderFn,
+        metadata: dict[str, Any] | None = None,
+    ) -> None:
+        action = Action(
+            name=name, kind=ActionKind.EMBEDDER, fn=fn, metadata=metadata
+        )
+        self.registry.register_action(action)
