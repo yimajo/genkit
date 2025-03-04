@@ -22,7 +22,7 @@ pnpm install
 
 ### Step 2: Set Up Environment Variables
 
-Create a \`.env\` file in the root directory and set the following variables. You can use the provided \`.env.example\` as a reference.
+Create a `.env` file in the root directory and set the following variables. You can use the provided `.env.example` as a reference.
 
 ```plaintext
 PROJECT_ID=your_project_id_here
@@ -55,7 +55,7 @@ This sample demonstrates how to use the Vertex AI plugin to rerank a predefined 
 
 ### Rerank Flow
 
-The \`rerankFlow\` function takes a query as input, reranks the predefined document content using the Vertex AI semantic reranker, and returns the documents sorted by relevance score.
+The `rerankFlow` function takes a query as input, reranks the predefined document content using the Vertex AI semantic reranker, and returns the documents sorted by relevance score.
 
 ```typescript
 export const rerankFlow = defineFlow(
@@ -92,7 +92,7 @@ const reranker = 'vertexai/reranker';
 
 ### Running the Server
 
-The server is started using the \`startFlowsServer\` function, which sets up the Genkit server to handle flow requests.
+The server is started using the `startFlowsServer` function, which sets up the Genkit server to handle flow requests.
 
 ```typescript
 startFlowsServer();
